@@ -17,15 +17,7 @@
     "types": ["node", "jest"],
     "jsx": "react-jsx",
     "baseUrl": "src",
-    "paths": {
-      "@/components/*": ["components/*"],
-      "@/pages/*": ["pages/*"],
-      "@/lib/*": ["lib/*"],
-      "@/types/*": ["types/*"],
-      "@/hooks/*": ["hooks/*"],
-      "@/store/*": ["store/*"],
-      "@/services/*": ["services/*"]
-    }
+    "paths": {}
   },
   "include": ["./src"]
 }
