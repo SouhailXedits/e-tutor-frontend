@@ -15,6 +15,7 @@ export interface Props<
   disabled?: boolean;
   register: UseFormRegister<T>;
   errors?: FieldErrors<U>;
+  className?: string;
 }
 
 const Input = <T extends FieldValues, U extends FieldValues>({
@@ -25,15 +26,16 @@ const Input = <T extends FieldValues, U extends FieldValues>({
   name,
   value,
   register,
+  className,
   ...rest
 }: Props<T, U>) => {
   return (
-    <div className="flex flex-col mb-4">
+    <div className={`flex flex-col mb-4 ${className}`}>
       <label className="flex" htmlFor={name}>
         {label ?? ''}
       </label>
       <input
-        className="border rounded-lg p-2 w-full"
+        className="border p-2 w-full"
         placeholder={placeholder}
         disabled={disabled}
         value={value}
