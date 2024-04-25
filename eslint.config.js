@@ -1,9 +1,7 @@
 module.exports = {
-  languageOptions: {
-    parser: '@typescript-eslint/parser',
-    parserOptions: {
-      project: './tsconfig.json', // path to your tsconfig.json
-    },
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: './tsconfig.json', // path to your tsconfig.json
   },
   ignorePatterns: ['node_modules/*', 'build/*', 'dist/*'],
   rules: {
