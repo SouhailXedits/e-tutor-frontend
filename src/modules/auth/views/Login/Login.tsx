@@ -10,7 +10,7 @@ import useAuthStore from 'modules/shared/store/useAuthStore';
 import * as yup from 'yup';
 
 const Login = () => {
-  const { isLoading, mutateAsync: login, isError, error } = useLoginQuery();
+  const { isPending, mutateAsync: login, isError, error } = useLoginQuery();
 
   const { setIsAuthenticated } = useAuthStore((state) => state);
 
@@ -23,7 +23,7 @@ const Login = () => {
       yup.object().shape({
         username: yup.string().required('Username is required'),
         password: yup.string().required('Password is required'),
-      })
+      }),
     ),
   });
 
@@ -34,7 +34,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isError) {
-      toast.error((error as Error)?.message, { theme: 'colored' });
+      toast.error(error?.message, { theme: 'colored' });
     }
   }, [isError]);
 
@@ -68,7 +68,7 @@ const Login = () => {
         />
 
         <div className="flex justify-center mt-5">
-          <Button text="Login" type="submit" isLoading={isLoading} />
+          <Button text="Login" type="submit" isLoading={isPending} />
         </div>
       </form>
     </div>

@@ -6,7 +6,10 @@ import {
 import { getHomes } from '../api/home.service';
 
 export const useHomesQuery = (params: GetHomesProps) =>
-  useQuery<GetHomeResponse>(['getHomes', { params }], async () => {
-    const res = await getHomes(params);
-    return res;
+  useQuery<GetHomeResponse>({
+    queryKey: ['getHomes', { params }],
+    queryFn: async () => {
+      const res = await getHomes(params);
+      return res;
+    },
   });

@@ -3,7 +3,10 @@ import { type LoginBody } from 'modules/auth/types/auth';
 import { login } from '../api/auth.service';
 
 export const useLoginQuery = () =>
-  useMutation(['login'], async (body: LoginBody) => {
-    const res = await login(body);
-    return res;
+  useMutation({
+    mutationKey: ['login'],
+    mutationFn: async (body: LoginBody) => {
+      const res = await login(body);
+      return res;
+    },
   });
