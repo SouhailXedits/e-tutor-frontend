@@ -2,16 +2,21 @@ import { useEffect } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useLoginQuery } from 'modules/auth/data/queries/auth.query';
-import { type LoginBody } from 'modules/auth/types/auth';
+import { useRegisterQuery } from 'modules/auth/data/queries/auth.query';
+import { type registerBody } from 'modules/auth/types/auth';
 import useAuthStore from 'modules/shared/store/useAuthStore';
 import * as yup from 'yup';
 import Button from 'modules/shared/components/Button';
 import Input from 'modules/shared/components/Input';
 import { ArrowRight } from 'lucide-react';
+import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 function CreateAccountForm() {
-  const { isLoading, mutateAsync: login, isError, error } = useLoginQuery();
+  const { isLoading, mutateAsync: login, isError, error } = useRegisterQuery();
+  const navigate = useNavigate();
+  
 
   const { setIsAuthenticated } = useAuthStore((state) => state);
 
@@ -19,7 +24,7 @@ function CreateAccountForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginBody>({
+  } = useForm<registerBody>({
     resolver: yupResolver(
       yup.object().shape({
         username: yup.string().required('Username is required'),
@@ -30,9 +35,10 @@ function CreateAccountForm() {
     ),
   });
 
-  const onSubmit: SubmitHandler<LoginBody> = async (data) => {
+  const onSubmit: SubmitHandler<registerBody> = async (data) => {
     await login(data);
-    setIsAuthenticated(true);
+    navigate("/confirm");
+    // setIsAuthenticated(true);
   };
 
   useEffect(() => {
@@ -120,7 +126,7 @@ function CreateAccountForm() {
           className="flex gap-2 px-6"
           size="lg"
         >
-          Create accoun <ArrowRight className="" />
+          Create account <ArrowRight className="" />
         </Button>
       </div>
     </form>

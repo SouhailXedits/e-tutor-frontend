@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useLoginQuery } from 'modules/auth/data/queries/auth.query';
+import { useRegisterQuery } from 'modules/auth/data/queries/auth.query';
 import { type LoginBody } from 'modules/auth/types/auth';
 import useAuthStore from 'modules/shared/store/useAuthStore';
 import * as yup from 'yup';
@@ -12,7 +12,7 @@ import { ArrowRight } from 'lucide-react';
 
 function LoginForm() {
 
-    const { isLoading, mutateAsync: login, isError, error } = useLoginQuery();
+    const { isLoading, mutateAsync: login, isError, error } = useRegisterQuery();
 
     const { setIsAuthenticated } = useAuthStore((state) => state);
 
@@ -30,8 +30,8 @@ function LoginForm() {
     });
 
     const onSubmit: SubmitHandler<LoginBody> = async (data) => {
-      await login(data);
-      setIsAuthenticated(true);
+      // await login(data);
+      // setIsAuthenticated(true);
     };
 
     useEffect(() => {

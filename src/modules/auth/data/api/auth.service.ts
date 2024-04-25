@@ -1,29 +1,37 @@
-import { API_ENDPOINT } from 'config';
-import { type LoginBody } from 'modules/auth/types/auth';
+import { API_ENDPOINT } from "config";
+import { ConfirmEmailBody, type LoginBody } from "modules/auth/types/auth";
 
-export const login = async (body: LoginBody) => {
-  console.log(API_ENDPOINT)
+export const register = async (body: LoginBody) => {
+  console.log(API_ENDPOINT);
   const res = await fetch(`${API_ENDPOINT}/auth/email/register`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
   });
-  console.log(res.ok)
-  console.log(res.json())
+  console.log(res.ok);
+  console.log(res.json());
   if (!res.ok) {
-    console.log(res)
-    throw new Error('Invalid Credential');
-  } 
+    console.log(res);
+    throw new Error("Invalid Credential");
+  }
+};
 
-  // const res = new Promise<boolean>((resolve, reject) => {
-  //   if (body?.username !== 'user' || body?.password !== 'user') {
-  //     reject(new Error('Invalid username or password'));
-  //   }
+export const confirmEmail = async (body: ConfirmEmailBody) => {
+  console.log(API_ENDPOINT);
+  console.log(body);
+  const res = await fetch(`${API_ENDPOINT}/auth/email/confirm`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    console.log(res);
+    throw new Error("Invalid Credential");
+  }
 
-  //   resolve(true);
-  // });
-
-  // return await res;
+  return res.json();
 };
