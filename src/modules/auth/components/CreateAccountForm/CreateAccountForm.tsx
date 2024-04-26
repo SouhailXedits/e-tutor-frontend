@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useRegisterQuery } from 'modules/auth/data/queries/auth.query';
+import { useRegisterMutation } from 'modules/auth/data/queries/auth.query';
 import { type registerBody } from 'modules/auth/types/auth';
 // import useAuthStore from 'modules/shared/store/useAuthStore';
 import * as yup from 'yup';
@@ -14,7 +14,12 @@ import { useNavigate } from "react-router-dom";
 
 
 function CreateAccountForm() {
-  const { isLoading, mutateAsync: login, isError, error } = useRegisterQuery();
+  const {
+    isPending: isLoading,
+    mutateAsync: login,
+    isError,
+    error,
+  } = useRegisterMutation();
   const navigate = useNavigate();
   
 
@@ -30,6 +35,7 @@ function CreateAccountForm() {
         username: yup.string().required('Username is required'),
         firstName: yup.string().required('First Name is required'),
         lastName: yup.string().required('Last Name is required'),
+        email: yup.string().required('Email is required'),
         password: yup.string().required('Password is required'),
       })
     ),

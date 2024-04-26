@@ -1,4 +1,4 @@
-import { type ReactElement } from "react";
+import { useEffect, type ReactElement } from "react";
 import { Navigate } from "react-router";
 import useAuthStore from "modules/shared/store/useAuthStore";
 import { useQuery } from "@tanstack/react-query";
@@ -13,18 +13,17 @@ const PrivateRoute: React.FC<Props> = ({ children }) => {
     (state) => state
   );
 
-  const { data } = useQuery({
+  const { data, isSuccess } = useQuery({
     queryKey: ["user"],
     queryFn: getMe,
-    onSuccess: (data) => {
-      setIsAuthenticated(true);
-    },
-    onError: () => {
-      setIsAuthenticated(false);
-    },
   });
-
-
+  useEffect(() => {
+    if (isSuccess) {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, [isSuccess, isAuthenticated, setIsAuthenticated, data]);
   return isAuthenticated ? children : <Navigate to="/" />;
 };
 

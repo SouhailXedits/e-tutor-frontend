@@ -23,25 +23,10 @@ export const confirmEmail = async (body: ConfirmEmailBody) => {
   const res = postData(`${API_ENDPOINT}/auth/email/confirm`, body);
   console.log(API_ENDPOINT);
   console.log(body);
-  // const res = await fetch(`${API_ENDPOINT}/auth/email/confirm`, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(body),
-  // });
-  // if (!res.ok) {
-  //   console.log(res);
-  //   throw new Error("Invalid Credential");
-  // }
-  // console.log(res);
 
-  // return res.json();
 };
 
 export const getMe = async () => {
   const me = await fetchData(API_ENDPOINT + "/auth/me");
-  console.log(me);
-
   return me
 };

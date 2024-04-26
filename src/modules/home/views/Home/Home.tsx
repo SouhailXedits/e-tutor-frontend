@@ -1,14 +1,15 @@
-import { useQuery } from '@tanstack/react-query';
-import { Button } from 'components/ui/button';
-import { getMe } from 'modules/auth/data/api/auth.service';
+import { useQuery } from "@tanstack/react-query";
+import { getMe } from "modules/auth/data/api/auth.service";
+import Button from "modules/shared/components/Button/Button";
 
 const Home = () => {
-  const { data} = useQuery({
-    queryKey: ['user'],
-    queryFn: getMe,
-  })
-  console.log(data)
-  return <div className="h-screen flex items-center justify-center">Home</div>;
+
+  function handleLogout() {
+    
+  }
+  return <div className="h-screen flex items-center justify-center">Home
+  <Button variant="primary" onClick={handleLogout} >Logout</Button>
+  </div>;
 };
 
 export default Home;
