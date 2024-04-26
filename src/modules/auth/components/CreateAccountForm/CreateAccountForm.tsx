@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRegisterQuery } from 'modules/auth/data/queries/auth.query';
 import { type registerBody } from 'modules/auth/types/auth';
-import useAuthStore from 'modules/shared/store/useAuthStore';
+// import useAuthStore from 'modules/shared/store/useAuthStore';
 import * as yup from 'yup';
 import Button from 'modules/shared/components/Button';
 import Input from 'modules/shared/components/Input';
@@ -18,7 +18,7 @@ function CreateAccountForm() {
   const navigate = useNavigate();
   
 
-  const { setIsAuthenticated } = useAuthStore((state) => state);
+  // const { setIsAuthenticated } = useAuthStore((state) => state);
 
   const {
     register,

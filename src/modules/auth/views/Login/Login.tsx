@@ -1,8 +1,12 @@
-import LoginForm from "modules/auth/components/LoginForm";
-import SocialAccountsAuth from "modules/auth/components/SocialAccountsAuth";
-import AuthHeader from "modules/shared/components/Headers/AuthHeader";
+import Cookies from 'js-cookie';
+import LoginForm from 'modules/auth/components/LoginForm';
+import SocialAccountsAuth from 'modules/auth/components/SocialAccountsAuth';
+import AuthHeader from 'modules/shared/components/Headers/AuthHeader';
+import useAuthStore from 'modules/shared/store/useAuthStore';
 
 const Login = () => {
+  const {isAuthenticated, setIsAuthenticated} = useAuthStore()
+
   return (
     <>
       <AuthHeader />
