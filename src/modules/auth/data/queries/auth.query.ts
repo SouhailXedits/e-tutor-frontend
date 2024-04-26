@@ -1,4 +1,3 @@
-
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { registerBody, ConfirmEmailBody } from "modules/auth/types/auth";
 import { confirmEmail, getMe, register } from "../api/auth.service";
