@@ -1,9 +1,9 @@
 import {
   type GetHomeResponse,
   type GetHomesProps,
-} from 'modules/home/types/home';
-import { api } from 'modules/shared/lib/api';
-import { newsApiKey } from 'modules/shared/lib/config';
+} from "modules/home/types/home";
+import api from "modules/shared/api/axios.config";
+import { newsApiKey } from "modules/shared/lib/config";
 
 export const getHomes = async (
   params: GetHomesProps
@@ -11,7 +11,7 @@ export const getHomes = async (
   const { search, page } = params;
   const { data } = await api.get<GetHomeResponse>(
     `https://newsdata.io/api/1/news?q=${
-      search ?? ''
+      search ?? ""
     }&page=${page}&apiKey=${newsApiKey}`
   );
   return data;
