@@ -44,7 +44,6 @@ function CreateAccountForm() {
   const onSubmit: SubmitHandler<registerBody> = async (data) => {
     await login(data);
     navigate("/confirm");
-    // setIsAuthenticated(true);
   };
 
   useEffect(() => {
