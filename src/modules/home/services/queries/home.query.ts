@@ -3,7 +3,7 @@ import {
   type GetHomeResponse,
   type GetHomesProps,
 } from 'modules/home/types/home';
-import { getHomes } from '../api/home.service';
+import { getHomes, logout } from '../api/home.service';
 
 export const useHomesQuery = (params: GetHomesProps) =>
   useQuery<GetHomeResponse>({

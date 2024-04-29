@@ -3,6 +3,7 @@ import {
   type GetHomesProps,
 } from "modules/home/types/home";
 import api from "modules/shared/api/axios.config";
+import postData from "modules/shared/api/axiosHelpers/postData";
 import { newsApiKey } from "modules/shared/lib/config";
 
 export const getHomes = async (
@@ -16,3 +17,5 @@ export const getHomes = async (
   );
   return data;
 };
+
+export const logout = async () => postData("/auth/logout", {});

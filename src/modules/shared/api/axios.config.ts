@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from "axios";
+import { API_ENDPOINT } from "config";
 const api: AxiosInstance = axios.create({
-  baseURL: process.env.API_URL,
+  baseURL: API_ENDPOINT,
   timeout: 0,
   responseType: "json",
   headers: {

@@ -49,7 +49,8 @@ function CreateAccountForm() {
 
   useEffect(() => {
     if (isError) {
-      toast.error((error as Error)?.message, { theme: 'colored' });
+      console.log(error)
+      toast.error((error)?.message, { theme: 'colored' });
     }
   }, [isError]);
   return (

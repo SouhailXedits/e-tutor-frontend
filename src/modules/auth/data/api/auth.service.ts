@@ -28,3 +28,8 @@ export const getMe = async () => {
   const me = await fetchData(API_ENDPOINT + "/auth/me");
   return me;
 };
+
+export const emailLogin = async (body: LoginBody) => {
+  const me = await postData(API_ENDPOINT + "/auth/email/login", { email: body.email, password: body.password });
+  return me
+}
