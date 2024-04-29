@@ -1,7 +1,7 @@
 import sendAxiosRequest from "./axios";
 export default async function postData<T>(
   path: string,
-  payload: { [key: string]: unknown }
+  payload: Record<string, unknown>
 ): Promise<T | null> {
   const options = {
     method: "POST",

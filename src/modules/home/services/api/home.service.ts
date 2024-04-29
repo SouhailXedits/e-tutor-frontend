@@ -18,4 +18,4 @@ export const getHomes = async (
   return data;
 };
 
-export const logout = async () => postData("/auth/logout", {});
+export const logout = async () => await postData("/auth/logout", {});

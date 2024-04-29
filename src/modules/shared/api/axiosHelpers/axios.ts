@@ -1,6 +1,6 @@
-import { AxiosError, AxiosRequestConfig } from "axios";
-import api from "../axios.config";
 import { toast } from "react-toastify";
+import { type AxiosError, type AxiosRequestConfig } from "axios";
+import api from "../axios.config";
 
 export default async function sendAxiosRequest<T>(
   options: AxiosRequestConfig
@@ -8,13 +8,13 @@ export default async function sendAxiosRequest<T>(
   return await api
     .request(options)
     .then((response) => {
-      console.log("🚀 ~ .then ~ response:", response);
+      console.log("🚀 ~ .then ~ response:", response.data);
       return response.data;
     })
     .catch((error: AxiosError) => {
       console.error(error);
       toast.error(
-        error.response?.status ||
+        error.response?.status ??
           (error.message !== "canceled" && error.message)
       );
       return null;
