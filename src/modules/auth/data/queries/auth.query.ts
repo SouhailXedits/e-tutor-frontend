@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { registerBody, ConfirmEmailBody } from "modules/auth/types/auth";
-import { confirmEmail, getMe, register } from "../api/auth.service";
+import { registerBody, ConfirmEmailBody, LoginBody } from "modules/auth/types/auth";
+import { confirmEmail, emailLogin, getMe, register } from "../api/auth.service";
 
 export const useRegisterMutation = () =>
   useMutation({
@@ -27,3 +27,12 @@ export const useGetMeQuery = () =>
       return res;
     },
   })
+
+export const useLoginMutation = () =>
+  useMutation({
+    mutationKey: ["login"],
+    mutationFn: async (body: LoginBody) => {
+      const res = await emailLogin(body);
+      return res;
+    },
+  });

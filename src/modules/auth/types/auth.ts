@@ -6,12 +6,8 @@ export interface registerBody {
   password: string;
 }
 
-
 export interface LoginBody {
-
-
-  username: string;
-
+  email: string;
   password: string;
 }
 export interface ConfirmEmailBody {
