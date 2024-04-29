@@ -1,8 +1,8 @@
-import { useEffect, type ReactElement } from "react";
+import { type ReactElement, useEffect } from "react";
 import { Navigate } from "react-router";
-import useAuthStore from "modules/shared/store/useAuthStore";
 import { useQuery } from "@tanstack/react-query";
 import { getMe } from "modules/auth/data/api/auth.service";
+import useAuthStore from "modules/shared/store/useAuthStore";
 
 interface Props {
   children: ReactElement;
