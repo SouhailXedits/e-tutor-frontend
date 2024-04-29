@@ -1,6 +1,6 @@
 import { API_ENDPOINT } from "config";
 import { fetchData, postData } from "lib/utils";
-import { ConfirmEmailBody, type LoginBody } from "modules/auth/types/auth";
+import { type ConfirmEmailBody, type LoginBody } from "modules/auth/types/auth";
 
 export const register = async (body: LoginBody) => {
   console.log(API_ENDPOINT);
@@ -21,12 +21,10 @@ export const register = async (body: LoginBody) => {
 
 export const confirmEmail = async (body: ConfirmEmailBody) => {
   const res = postData(`${API_ENDPOINT}/auth/email/confirm`, body);
-  console.log(API_ENDPOINT);
-  console.log(body);
-
+  console.log("🚀 ~ confirmEmail ~ res:", res);
 };
 
 export const getMe = async () => {
   const me = await fetchData(API_ENDPOINT + "/auth/me");
-  return me
+  return me;
 };

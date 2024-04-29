@@ -1,7 +1,7 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { useAuthRoutes } from 'modules/auth/routes';
-import { useHomeRoutes } from 'modules/home/routes';
-import NotFound from '../pages/NotFound';
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { useAuthRoutes } from "modules/auth/routes";
+import { useHomeRoutes } from "modules/home/routes";
+import NotFound from "../pages/NotFound";
 
 const authRoutes = useAuthRoutes();
 const homeRoutes = useHomeRoutes();

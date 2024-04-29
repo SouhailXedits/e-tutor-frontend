@@ -1,8 +1,7 @@
-import { ToastContainer } from 'react-toastify';
-import { QueryClient } from '@tanstack/react-query';
-import Router from '../modules/shared/routes';
-import 'react-toastify/dist/ReactToastify.css';
-import QueryClientProvider from '../providers/queryClientProvider';
+import { ToastContainer } from "react-toastify";
+import Router from "../modules/shared/routes";
+import QueryClientProvider from "../providers/queryClientProvider";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (

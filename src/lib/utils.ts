@@ -1,9 +1,8 @@
+import axios, { type AxiosResponse } from "axios";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-import axios, { AxiosResponse } from "axios";
-
-export async function fetchData<T>(route: string, params?: any): Promise<T> {
+export async function fetchData<T>(route: string, params?: object): Promise<T> {
   try {
     const response: AxiosResponse<T> = await axios.get(route, {
       params,
@@ -16,7 +15,7 @@ export async function fetchData<T>(route: string, params?: any): Promise<T> {
   }
 }
 
-export async function postData<T>(route: string, data: any): Promise<T> {
+export async function postData<T>(route: string, data: object): Promise<T> {
   try {
     const response: AxiosResponse<T> = await axios.post(route, data, {
       withCredentials: true,

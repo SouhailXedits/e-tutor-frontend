@@ -1,9 +1,9 @@
-import { Route } from 'react-router-dom';
-import PublicRoute from 'modules/shared/routes/PublicRoute';
-import Login from '../views/Login';
-import Register from '../views/Register';
+import { Route } from "react-router-dom";
+import PublicRoute from "modules/shared/routes/PublicRoute";
 import ConfirmationEmail from "../views/Confirm/ConfirmEmail";
-import ConfirmationPage from '../views/Confirm-email/ConfirmPage';
+import ConfirmationPage from "../views/Confirm-email/ConfirmPage";
+import Login from "../views/Login";
+import Register from "../views/Register";
 
 export const useAuthRoutes = () => {
   return (
