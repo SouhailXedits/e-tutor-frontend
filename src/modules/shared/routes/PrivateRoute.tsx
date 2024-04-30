@@ -13,19 +13,24 @@ const PrivateRoute: React.FC<Props> = ({ children }) => {
     (state) => state
   );
 
-  const { data, isSuccess } = useQuery({
+  const { data, isSuccess, isPending } = useQuery({
     queryKey: ["user"],
     queryFn: getMe,
+    retry: false,
   });
   useEffect(() => {
     if (isSuccess) {
-      console.log(data)
       setIsAuthenticated(true);
     } else {
-      setIsAuthenticated(false);
+      if (!isPending && !data) {
+        setIsAuthenticated(false);
+      }
     }
-  }, [isSuccess, isAuthenticated, setIsAuthenticated, data]);
-  return isAuthenticated ? children : <Navigate to="/" />;
+  }, [isSuccess, isAuthenticated, setIsAuthenticated, data, isPending]);
+  if (!isAuthenticated) {
+    return <Navigate to="/" />;
+  }
+  return children;
 };
 
 export default PrivateRoute;
