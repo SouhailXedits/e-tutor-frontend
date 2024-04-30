@@ -1,6 +1,6 @@
 export interface payementCardInput {
   name: string;
-  cardNumber: number;
+  cardNumber: string;
   expiry: string;
-  cvc: number;
+  cvc: string;
 }

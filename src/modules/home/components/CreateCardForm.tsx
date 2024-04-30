@@ -1,16 +1,14 @@
-
+import Button from "modules/shared/components/Button/Button";
 import Input from "modules/shared/components/Input";
 
-
-function CreateCardForm({register, errors}: any) {
-  
-
+function CreateCardForm({ register, errors, onSubmit, handleSubmit }: any) {
   return (
-    <form className=" mt-5">
+    // <form className=" mt-5" onSubmit={handleSubmit(onSubmit)}>
+    <div>
       <Input
         id="name"
         name="name"
-        label="name"
+        label="Name"
         placeholder="Name on card"
         register={register}
         errors={errors}
@@ -47,36 +45,14 @@ function CreateCardForm({register, errors}: any) {
         />
       </div>
 
-      {/* <div className=" flex items-center gap-4 w-full justify-between">
-        <Input
-          id="password"
-          name="password"
-          type="password"
-          label="Password"
-          placeholder="Password"
-          register={register}
-          errors={errors}
-          className=" gap-3 w-full"
-        />
-        <Input
-          id="confirmPassword"
-          name="confirmPassword"
-          type="password"
-          label="Confirm Password"
-          placeholder="Confirm Password"
-          register={register}
-          errors={errors}
-          className=" gap-3 w-full"
-        />
-      </div> */}
-
       <div className="flex mt-5 gap-2 ">
         <input type="checkbox" name="agree" id="agree" className=" h-6 w-6" />{" "}
         <label htmlFor="agree" className=" text-sm">
           Remember this card, save it on my card list
         </label>
       </div>
-    </form>
+      {/* </form> */}
+    </div>
   );
 }
 
