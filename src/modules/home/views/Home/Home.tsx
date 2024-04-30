@@ -8,14 +8,9 @@ const Home = () => {
       window.location.reload();
     }, 1000);
   }
-  return (
-    <div className="h-screen flex items-center justify-center">
-      Home
-      <Button variant="primary" onClick={handleLogout}>
-        Logout
-      </Button>
-    </div>
-  );
+  return <div className="h-screen flex items-center justify-center">Home
+  <Button variant="primary" onClick={handleLogout} >Logout</Button>
+  </div>;
 };
 
 export default Home;

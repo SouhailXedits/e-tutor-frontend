@@ -2,21 +2,26 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { useAuthRoutes } from "modules/auth/routes";
 import { useHomeRoutes } from "modules/home/routes";
 import NotFound from "../pages/NotFound";
+import useAuthStore from "../store/useAuthStore";
 
 const authRoutes = useAuthRoutes();
 const homeRoutes = useHomeRoutes();
+function Router() {
+  const { isAuthenticated } = useAuthStore();
+  console.log(isAuthenticated);
 
-const Router = () => (
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Navigate to="/login" />} />
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" />} />
 
-      {authRoutes}
-      {homeRoutes}
+        {authRoutes}
+        {homeRoutes}
 
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  </BrowserRouter>
-);
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
 
 export default Router;
