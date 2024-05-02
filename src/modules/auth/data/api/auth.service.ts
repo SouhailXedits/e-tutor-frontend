@@ -1,31 +1,25 @@
-import { API_ENDPOINT } from "config";
-import { fetchData, postData } from "lib/utils";
 import { type ConfirmEmailBody, type LoginBody } from "modules/auth/types/auth";
+import getData from "modules/shared/api/axiosHelpers/getData";
+import postData from "modules/shared/api/axiosHelpers/postData";
 
 export const register = async (body: LoginBody) => {
-  const res = await fetch(`${API_ENDPOINT}/auth/email/register`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
-  if (!res.ok) {
-    throw new Error("Invalid Credential");
-  }
+  await postData("/auth/email/register", body);
 };
 
 export const confirmEmail = async (body: ConfirmEmailBody) => {
-  await postData(`${API_ENDPOINT}/auth/email/confirm`, body);
+  await postData(`/auth/email/confirm`, body);
 };
 
 export const getMe = async () => {
-  const me = await fetchData(API_ENDPOINT + "/auth/me");
+  const me = await getData({
+    path: "auth/me",
+  });
+  if (!me) throw new Error("User not found");
   return me;
 };
 
 export const emailLogin = async (body: LoginBody) => {
-  const me = await postData(API_ENDPOINT + "/auth/email/login", {
+  const me = await postData("/auth/email/login", {
     email: body.email,
     password: body.password,
   });
@@ -33,12 +27,12 @@ export const emailLogin = async (body: LoginBody) => {
 };
 
 export const googleLogin = async (tokenID: string) => {
-  const me = await postData(API_ENDPOINT + "/auth/google/login", {
+  const me = await postData("/auth/google/login", {
     idToken: tokenID,
   });
   return me;
 };
 
 export const logout = async () => {
-  await postData(`${API_ENDPOINT}/auth/logout`, {});
+  await postData(`/auth/logout`, {});
 };

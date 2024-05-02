@@ -1,4 +1,4 @@
-import { Route } from "react-router-dom";
+import { Navigate, Route } from "react-router-dom";
 import PublicRoute from "modules/shared/routes/PublicRoute";
 import ConfirmationEmail from "../views/Confirm/ConfirmEmail";
 import ConfirmationPage from "../views/Confirm-email/ConfirmPage";
@@ -8,6 +8,7 @@ import Register from "../views/Register";
 export const useAuthRoutes = () => {
   return (
     <>
+      <Route path="/" element={<Navigate to="/login" />} />
       <Route
         path="/login"
         element={
@@ -16,7 +17,6 @@ export const useAuthRoutes = () => {
           </PublicRoute>
         }
       />
-
       <Route
         path="/register"
         element={

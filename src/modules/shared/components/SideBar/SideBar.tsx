@@ -1,17 +1,15 @@
 import { MdOutlineLogout } from "react-icons/md";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
-import { logout } from "modules/home/services/api/home.service";
+import { useLogoutMutation } from "modules/auth/data/queries/auth.query";
 import Logo from "modules/shared/components/Logo";
 import { links } from "modules/shared/routes/constants/routes";
 
 export default function SideBar() {
   const pathname = useLocation().pathname;
+  const { mutateAsync: logout } = useLogoutMutation();
   async function handleLogout() {
     await logout();
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
   }
   return (
     <div className="max-w-[20rem] bg-gray-900 w-full h-full flex flex-col">

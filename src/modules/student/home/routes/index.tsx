@@ -1,24 +1,30 @@
 import { Route } from "react-router-dom";
 import PrivateRoute from "modules/shared/routes/PrivateRoute";
+import Dashboard from "../components/Home/HomeViews/Dashboard";
+import Messages from "../components/Home/HomeViews/Messages";
+import PurchaseHistory from "../components/Home/HomeViews/PurchaseHistory";
+import Settings from "../components/Home/HomeViews/Settings";
+import Teachers from "../components/Home/HomeViews/Teachers";
+import Wishlist from "../components/Home/HomeViews/Wishlist";
+import StudentMainLayout from "../components/Home/StudentMainLayout";
+import PaymentGateway from "../components/purshase/PayementGateway";
+import About from "../views/About";
+import BeInstructor from "../views/BeInstructor/BeInstructor";
+import Contact from "../views/Contact";
+import Courses from "../views/Courses";
 import Home from "../views/Home";
 import Purshases from "../views/Purshases";
-import PaymentGateway from "../components/purshase/PayementGateway";
-import StudentsRoutesTabs from "../components/Home/StudentsRoutesTabs";
-import Courses from "../views/Courses";
-import About from "../views/About";
-import Contact from "../views/Contact";
-import BeInstructor from "../views/BeInstructor/BeInstructor";
-import StudentMainLayout from "../components/Home/StudentMainLayout";
-import Settings from "../components/Home/HomeViews/Settings";
-import Dashboard from "../components/Home/HomeViews/Dashboard";
-import Teachers from "../components/Home/HomeViews/Teachers";
-import Messages from "../components/Home/HomeViews/Messages";
-import Wishlist from "../components/Home/HomeViews/Wishlist";
-import PurchaseHistory from "../components/Home/HomeViews/PurchaseHistory";
 
 export const useStudentHomeRoutes = () => {
   return (
-    <Route path="/" element={<StudentMainLayout />}>
+    <Route
+      path="/"
+      element={
+        <PrivateRoute>
+          <StudentMainLayout />
+        </PrivateRoute>
+      }
+    >
       <Route
         path="/home"
         element={

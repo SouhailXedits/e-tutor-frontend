@@ -1,8 +1,7 @@
-import { useMutation } from "@tanstack/react-query";
-import { payCourses } from "../api/payement.service";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router";
-import { IPayementBody } from "../../types/payement";
+import { useMutation } from "@tanstack/react-query";
+import { type IPayementBody } from "../../types/payement";
+import { payCourses } from "../api/payement.service";
 
 export const usePayementMutation = () =>
   useMutation({

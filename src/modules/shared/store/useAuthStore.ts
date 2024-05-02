@@ -10,7 +10,7 @@ export interface AuthStore extends AuthState {
 }
 
 const initialState: Pick<AuthStore, keyof AuthState> = {
-  isAuthenticated: true,
+  isAuthenticated: false,
 };
 
 const useAuthStore = create<AuthStore>()(
@@ -22,8 +22,8 @@ const useAuthStore = create<AuthStore>()(
         // TODO: Save Token
       },
     }),
-    "authStore",
-  ),
+    "authStore"
+  )
 );
 
 export default useAuthStore;

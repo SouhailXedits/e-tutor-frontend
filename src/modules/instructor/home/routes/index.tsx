@@ -1,20 +1,34 @@
-import { Route } from "react-router-dom";
-import CreateCourse from "modules/home/views/create-course";
-import Earnings from "modules/home/views/earnings";
-import Messages from "modules/home/views/messages";
-import MyCourses from "modules/home/views/my-courses";
-import Settings from "modules/home/views/settings";
+import { Outlet, Route } from "react-router-dom";
+import CreateCourse from "modules/instructor/home/views/create-course";
+import Earnings from "modules/instructor/home/views/earnings";
+import Messages from "modules/instructor/home/views/messages";
+import MyCourses from "modules/instructor/home/views/my-courses";
+import Settings from "modules/instructor/home/views/settings";
+import SideBar from "modules/shared/components/SideBar";
+import TopBar from "modules/shared/components/TopBar";
 import PrivateRoute from "modules/shared/routes/PrivateRoute";
-import Home from "../views/Home";
+import Dashboard from "../views/dahsboard/Dashboard";
 
 export const useHomeRoutes = () => {
+  console.log("🚀 ~ useHomeRoutes ~ useHomeRoutes:");
   return (
-    <>
+    <Route
+      path="/"
+      element={
+        <div className="flex flex-row h-screen w-screen">
+          <SideBar />
+          <div className="flex flex-col gap-2 w-full h-full">
+            <TopBar />
+            <Outlet />
+          </div>
+        </div>
+      }
+    >
       <Route
         path="/home"
         element={
           <PrivateRoute>
-            <Home />
+            <Dashboard />
           </PrivateRoute>
         }
       />
@@ -58,6 +72,6 @@ export const useHomeRoutes = () => {
           </PrivateRoute>
         }
       />
-    </>
+    </Route>
   );
 };

@@ -1,36 +1,14 @@
-import { type ReactElement, useEffect } from "react";
+import { type ReactElement } from "react";
 import { Navigate } from "react-router";
-import { useQuery } from "@tanstack/react-query";
-import { getMe } from "modules/auth/data/api/auth.service";
-import useAuthStore from "modules/shared/store/useAuthStore";
+import { useGetMe } from "../querys/useGetMe";
 
 interface Props {
   children: ReactElement;
 }
 
 const PrivateRoute: React.FC<Props> = ({ children }) => {
-  const { isAuthenticated, setIsAuthenticated } = useAuthStore(
-    (state) => state
-  );
-
-  const { data, isSuccess, isPending } = useQuery({
-    queryKey: ["user"],
-    queryFn: getMe,
-    retry: false,
-  });
-  useEffect(() => {
-    if (isSuccess) {
-      setIsAuthenticated(true);
-    } else {
-      if (!isPending && !data) {
-        setIsAuthenticated(false);
-      }
-    }
-  }, [isSuccess, isAuthenticated, setIsAuthenticated, data, isPending]);
-  if (!isAuthenticated) {
-    return <Navigate to="/" />;
-  }
-  return children;
+  const { data } = useGetMe();
+  return !data ? <Navigate to="/login" /> : children;
 };
 
 export default PrivateRoute;

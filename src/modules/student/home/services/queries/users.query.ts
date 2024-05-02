@@ -1,7 +1,7 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { type IUpdateStudentProfile } from "../../types/user";
 import { updateStudentProfile } from "../api/users.service";
-import { IUpdateStudentProfile } from "../../types/user";
 
 export const useUpdateStudentProfileMutation = () => {
   const queryClient = useQueryClient();
@@ -23,11 +23,12 @@ export const useUpdateStudentProfileMutation = () => {
       toast.error(errMessage);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({
+      toast.success("Profile updated successfully!");
+    },
+    onSettled: async () => {
+      await queryClient.invalidateQueries({
         queryKey: ["user"],
       });
-
-      toast.success("Profile updated successfully!");
     },
   });
 };

@@ -1,28 +1,25 @@
-import { BrowserRouter, Routes } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { getMe } from "modules/auth/data/api/auth.service";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useAuthRoutes } from "modules/auth/routes";
 import { useHomeRoutes } from "modules/instructor/home/routes";
 import { useStudentHomeRoutes } from "modules/student/home/routes";
+import NotFound from "../pages/NotFound";
+import { useGetMe } from "../querys/useGetMe";
 
 const Router = () => {
   const authRoutes = useAuthRoutes();
   const studentHomeRoutes = useStudentHomeRoutes();
   const instructorHomeRoutes = useHomeRoutes();
-  const { data: user } = useQuery<any>({
-    queryKey: ["user"],
-    queryFn: async () => await getMe(),
-  });
+  const { data: user }: { data: any } = useGetMe();
   let isInstructor = false;
-  if (user?.role?.id === 1 || user?.role?.id === 3) {
+  if ([1, 3].includes(user?.role?.id)) {
     isInstructor = true;
   }
   return (
     <BrowserRouter>
       <Routes>
-        {!isInstructor && studentHomeRoutes}
-        {isInstructor && instructorHomeRoutes}
+        {isInstructor ? instructorHomeRoutes : studentHomeRoutes}
         {authRoutes}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

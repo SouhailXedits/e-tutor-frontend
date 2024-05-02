@@ -61,8 +61,8 @@ function BasicInformation() {
         setApiErrors(errors);
         throw new Error("An error occurred while creating the course");
       }
-      const courseId: number = res?.id;
-      console.log("🚀 ~ mutationFn: ~ courseId:", courseId);
+      // const courseId: number = res?.id;
+      console.log("🚀 ~ mutationFn: ~ res:", res);
     },
     onSuccess: () => {
       toast.success("Course created successfully");

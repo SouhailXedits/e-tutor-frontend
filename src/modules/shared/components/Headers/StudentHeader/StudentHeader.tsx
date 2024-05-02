@@ -1,25 +1,23 @@
-import Button from "modules/shared/components/Button";
-import Logo from "../../Logo";
 import { Link } from "react-router-dom";
-import { ShoppingBasket, ShoppingCart } from "lucide-react";
-import { DropdownMenu } from "components/ui/dropdown-menu";
 import {
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { useQueryClient } from "@tanstack/react-query";
+import { DropdownMenu } from "components/ui/dropdown-menu";
+import { ShoppingCart } from "lucide-react";
 import { useLogoutMutation } from "modules/auth/data/queries/auth.query";
-import { IUser } from "modules/student/home/types/user";
+import Button from "modules/shared/components/Button";
+import { type IUser } from "modules/student/home/types/user";
+import Logo from "../../Logo";
 
 const StudentHeader = () => {
   const queryClient = useQueryClient();
   const { mutateAsync: logout } = useLogoutMutation();
   const user = queryClient.getQueryData(["user"]) as IUser;
-  const userPhoto = user?.photo || "/users/default-user-image.webp";
-  console.log(userPhoto)
+  const userPhoto = user?.photo ?? "/users/default-user-image.webp";
+  console.log(userPhoto);
 
   async function handleLogout() {
     await logout();
