@@ -1,19 +1,15 @@
-
-import * as yup from "yup";
-import { type payementCardInput } from "../../types/payementCardInput";
 import { useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
-
-import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
-
 import { useNavigate } from "react-router";
-import { IPayementCard } from "../../types/payementCard";
-import { usePayementMutation } from "../../services/queries/payement.query";
-import { fakeCourses } from "../../services/fakeData/fakePurshaseData";
-import { ICourse } from "../../types/course";
-import CreateCardForm from "../../components/purshase/CreateCardForm";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import * as yup from "yup";
 import CourseCard from "../../components/purshase/CourseCard";
+import CreateCardForm from "../../components/purshase/CreateCardForm";
 import OrderSummary from "../../components/purshase/OrderSummary";
+import { fakeCourses } from "../../services/fakeData/fakePurshaseData";
+import { usePayementMutation } from "../../services/queries/payement.query";
+import { type ICourse } from "../../types/course";
+import { type IPayementCard } from "../../types/payementCard";
 
 const payementCardSchema = yup.object().shape({
   name: yup.string().required("name is required"),
@@ -76,7 +72,12 @@ const Purshase = () => {
   };
 
   return (
-    <form className="mt-5" onSubmit={(e) => handleSubmit(e)}>
+    <form
+      className="mt-5"
+      onSubmit={async (e) => {
+        await handleSubmit(e);
+      }}
+    >
       <div className=" flex flex-col items-center transition-all">
         <div className=" bg-gray-50 text-center py-10 flex flex-col gap-4 w-full">
           <h2 className="text-3xl font-semibold">checkout</h2>
@@ -100,7 +101,7 @@ const Purshase = () => {
                 );
               })} */}
               <div
-                className={`flex border p-2 gap-2 items-center justify-between ${isCreateCardFormOpen && "border-success-500"} cursor-pointer`}
+                className={`flex border p-2 gap-2 items-center justify-between ${isCreateCardFormOpen ? "border-success-500" : ""} cursor-pointer`}
                 onClick={handleFormToggle}
               >
                 <div className="flex gap-6 items-center">

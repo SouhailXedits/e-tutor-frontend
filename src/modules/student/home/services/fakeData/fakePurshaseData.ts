@@ -1,11 +1,11 @@
-import { ICourse } from "../../types/course";
-import { IPayementCard } from "../../types/payementCard";
+import { type ICourse } from "../../types/course";
+import { type IPayementCard } from "../../types/payementCard";
 
 export const fakeCourses: ICourse[] = [
   {
     createdAt: "2024-04-23T07:29:03.768Z",
     updatedAt: "2024-04-23T07:29:03.768Z",
-    id: 47,
+    id: 8,
     title: "Graphic Design Masterclass - Learn GREAT Design",
     subtitle: "Intelligent Metal Ball",
     topic: "Refined Frozen Gloves",
@@ -17,7 +17,7 @@ export const fakeCourses: ICourse[] = [
     requirements: ["Human (Optional)"],
     welcomeMessage: "maiores animi deleniti",
     congratsMessage: "aut modi placeat",
-    price: 50,
+    price: 8,
     discount: 5,
     thumbnail: {
       id: "f39d372c-3552-4b62-a954-7957f9a7d497",
