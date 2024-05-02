@@ -1,17 +1,16 @@
-import { useEffect } from 'react';
-import { type SubmitHandler, useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useRegisterMutation } from 'modules/auth/data/queries/auth.query';
-import { type registerBody } from 'modules/auth/types/auth';
+import { useEffect } from "react";
+import { type SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useRegisterMutation } from "modules/auth/data/queries/auth.query";
+import { type registerBody } from "modules/auth/types/auth";
 // import useAuthStore from 'modules/shared/store/useAuthStore';
-import * as yup from 'yup';
-import Button from 'modules/shared/components/Button';
-import Input from 'modules/shared/components/Input';
-import { ArrowRight } from 'lucide-react';
+import * as yup from "yup";
+import Button from "modules/shared/components/Button";
+import Input from "modules/shared/components/Input";
+import { ArrowRight } from "lucide-react";
 import { redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
 
 function CreateAccountForm() {
   const {
@@ -21,7 +20,6 @@ function CreateAccountForm() {
     error,
   } = useRegisterMutation();
   const navigate = useNavigate();
-  
 
   // const { setIsAuthenticated } = useAuthStore((state) => state);
 
@@ -32,12 +30,12 @@ function CreateAccountForm() {
   } = useForm<registerBody>({
     resolver: yupResolver(
       yup.object().shape({
-        username: yup.string().required('Username is required'),
-        firstName: yup.string().required('First Name is required'),
-        lastName: yup.string().required('Last Name is required'),
-        email: yup.string().required('Email is required'),
-        password: yup.string().required('Password is required'),
-      })
+        username: yup.string().required("Username is required"),
+        firstName: yup.string().required("First Name is required"),
+        lastName: yup.string().required("Last Name is required"),
+        email: yup.string().required("Email is required"),
+        password: yup.string().required("Password is required"),
+      }),
     ),
   });
 
@@ -48,8 +46,8 @@ function CreateAccountForm() {
 
   useEffect(() => {
     if (isError) {
-      console.log(error)
-      toast.error((error)?.message, { theme: 'colored' });
+      console.log(error);
+      toast.error(error?.message, { theme: "colored" });
     }
   }, [isError]);
   return (
@@ -121,9 +119,12 @@ function CreateAccountForm() {
 
       <div className="flex justify-between mt-5 ">
         <div className="flex items-center gap-3 text-gray-700">
-          <input type="checkbox" name="agree" id="agree" className=" h-6 w-6" />{' '}
+          <input type="checkbox" name="agree" id="agree" className=" h-6 w-6" />{" "}
           <label htmlFor="agree" className=" text-sm">
-            I Agree with all of your <a href="#" className=' text-secondary-500'>Terms & Conditions</a>
+            I Agree with all of your{" "}
+            <a href="#" className=" text-secondary-500">
+              Terms & Conditions
+            </a>
           </label>
         </div>
         <Button

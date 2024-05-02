@@ -10,7 +10,7 @@ interface Props {
 
 const PrivateRoute: React.FC<Props> = ({ children }) => {
   const { isAuthenticated, setIsAuthenticated } = useAuthStore(
-    (state) => state
+    (state) => state,
   );
 
   const { data, isSuccess } = useQuery({
@@ -19,7 +19,7 @@ const PrivateRoute: React.FC<Props> = ({ children }) => {
   });
   useEffect(() => {
     if (isSuccess) {
-      console.log(data)
+      console.log(data);
       setIsAuthenticated(true);
     } else {
       setIsAuthenticated(false);

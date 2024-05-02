@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { type AxiosInstance } from "axios";
 import { API_ENDPOINT } from "config";
 const api: AxiosInstance = axios.create({
   baseURL: API_ENDPOINT,

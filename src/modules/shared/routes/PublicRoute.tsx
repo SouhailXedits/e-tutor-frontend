@@ -10,7 +10,7 @@ interface Props {
 
 const PublicRoute: React.FC<Props> = ({ children }) => {
   const { isAuthenticated, setIsAuthenticated } = useAuthStore(
-    (state) => state
+    (state) => state,
   );
   const { data, isSuccess } = useQuery({
     queryKey: ["user"],

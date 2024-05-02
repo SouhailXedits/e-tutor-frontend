@@ -1,9 +1,9 @@
-import Button from 'modules/shared/components/Button';
-import useAuthStore from 'modules/shared/store/useAuthStore';
+import Button from "modules/shared/components/Button";
+import useAuthStore from "modules/shared/store/useAuthStore";
 
 const Header = () => {
   const { isAuthenticated, setIsAuthenticated } = useAuthStore(
-    (state) => state
+    (state) => state,
   );
 
   return (

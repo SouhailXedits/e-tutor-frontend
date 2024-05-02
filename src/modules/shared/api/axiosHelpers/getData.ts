@@ -2,16 +2,12 @@ import sendAxiosRequest from "./axios";
 
 type getDataParams = {
   path: string;
-  params?: {
-    [key: string]: number | string;
-  };
-  sort?: {
+  params?: Record<string, number | string>;
+  sort?: Array<{
     orderBy: string;
     order: boolean;
-  }[];
-  filter?: {
-    [key: string]: string | number;
-  };
+  }>;
+  filter?: Record<string, string | number>;
   pagination?: {
     limit: number;
     page: number;
@@ -26,20 +22,24 @@ export default async function getData<T>({
   pagination,
   signal,
 }: getDataParams): Promise<T | null> {
+  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
   const requestPath = `/${path}?${new URLSearchParams({
-    ...(params && { ...params }), // spread params to top level
-    ...(filter && { filters: JSON.stringify(filter) }), // rename filter to filters
-    ...(sort && { sort: JSON.stringify(sort) }), // JSON stringify sort
-    ...(pagination && {
-      page: pagination.page.toString(),
-      limit: pagination.limit.toString(),
-    }), // convert page and limit to string
+    ...(params ? { ...params } : {}),
+    ...(filter ? { filters: JSON.stringify(filter) } : {}),
+    ...(sort ? { sort: JSON.stringify(sort) } : {}),
+    ...(pagination
+      ? {
+          page: pagination.page.toString(),
+          limit: pagination.limit.toString(),
+        }
+      : {}),
   })}`;
   console.log("🚀 ~ requestPath:", requestPath);
   const options = {
     method: "GET",
     url: requestPath,
-    signal: signal,
+    signal,
   };
-  return await sendAxiosRequest<T>(options);
+  const { data } = await sendAxiosRequest<T>(options);
+  return data;
 }

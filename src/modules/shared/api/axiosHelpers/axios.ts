@@ -4,19 +4,18 @@ import api from "../axios.config";
 
 export default async function sendAxiosRequest<T>(
   options: AxiosRequestConfig
-): Promise<T | null> {
+): Promise<{ data: T | null; errors: Record<string, string> | null }> {
   return await api
     .request(options)
     .then((response) => {
-      console.log("🚀 ~ .then ~ response:", response.data);
-      return response.data;
+      return { data: response.data, errors: null };
     })
     .catch((error: AxiosError) => {
       console.error(error);
-      toast.error(
-        error.response?.status ??
-          (error.message !== "canceled" && error.message)
-      );
-      return null;
+      const errors = (
+        error.response?.data as { errors: Record<string, string> }
+      ).errors;
+      toast.error(error.message !== "canceled" && error.message);
+      return { data: null, errors };
     });
 }

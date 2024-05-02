@@ -1,7 +1,13 @@
 import React from "react";
+import { StepsSwitcher } from "./components/StepsSwitcher/StepsSwitcher";
+import { StepsContextProvider } from "./context/StepsContext";
 
-function CreateCourse() {
-  return <div>CreateCourse</div>;
+export default function CreateCourse() {
+  return (
+    <StepsContextProvider>
+      <div className="bg-gray-50 h-full px-4 pt-4 overflow-y-auto">
+        <StepsSwitcher />
+      </div>
+    </StepsContextProvider>
+  );
 }
-
-export default CreateCourse;

@@ -30,6 +30,9 @@ export const getMe = async () => {
 };
 
 export const emailLogin = async (body: LoginBody) => {
-  const me = await postData(API_ENDPOINT + "/auth/email/login", { email: body.email, password: body.password });
-  return me
-}
+  const me = await postData(API_ENDPOINT + "/auth/email/login", {
+    email: body.email,
+    password: body.password,
+  });
+  return me;
+};

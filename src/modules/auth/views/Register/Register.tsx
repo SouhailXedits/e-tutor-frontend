@@ -1,6 +1,6 @@
-import CreateAccountForm from 'modules/auth/components/CreateAccountForm/CreateAccountForm';
-import SocialAccountsAuth from 'modules/auth/components/SocialAccountsAuth/SocialAccountsAuth';
-import AuthHeader from 'modules/shared/components/Headers/AuthHeader';
+import CreateAccountForm from "modules/auth/components/CreateAccountForm/CreateAccountForm";
+import SocialAccountsAuth from "modules/auth/components/SocialAccountsAuth/SocialAccountsAuth";
+import AuthHeader from "modules/shared/components/Headers/AuthHeader";
 
 const Register = () => {
   return (

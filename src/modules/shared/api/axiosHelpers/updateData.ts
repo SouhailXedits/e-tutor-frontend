@@ -1,8 +1,8 @@
 import sendAxiosRequest from "./axios";
 export default async function patchData<T>(
   path: string,
-  payload: { [key: string]: unknown }
-): Promise<T | null> {
+  payload: Record<string, unknown>
+): Promise<{ data: T | null; errors: Record<string, string> | null }> {
   const options = {
     method: "PATCH",
     url: path,

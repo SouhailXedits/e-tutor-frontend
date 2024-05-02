@@ -91,7 +91,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       type={props?.type ?? "button"}
-      className={`${
+      className={`rounded-sm ${
         className ?? ""
       } ${getVariantClasses()} ${getSizeClasses()} ${
         disabled ? "opacity-50 cursor-not-allowed" : ""

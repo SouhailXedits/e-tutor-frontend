@@ -1,1 +1,1 @@
-export { default } from './SocialAccountsAuth';
+export { default } from "./SocialAccountsAuth";

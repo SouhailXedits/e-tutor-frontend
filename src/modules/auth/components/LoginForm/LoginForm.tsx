@@ -26,7 +26,7 @@ function LoginForm() {
       yup.object().shape({
         email: yup.string().email().required("Username is required"),
         password: yup.string().required("Password is required"),
-      })
+      }),
     ),
   });
 
@@ -39,8 +39,13 @@ function LoginForm() {
     if (isError) {
       const loginError = error as any;
       const errorResponse = loginError?.response?.data;
-      const errMessage = errorResponse.message || Object.values(errorResponse.errors).map((err: any) => err).join(', ') || "Something went wrong";
-      toast.error((errMessage), { theme: "colored" });
+      const errMessage =
+        errorResponse.message ||
+        Object.values(errorResponse.errors)
+          .map((err: any) => err)
+          .join(", ") ||
+        "Something went wrong";
+      toast.error(errMessage, { theme: "colored" });
     }
   }, [isError]);
   return (

@@ -5,7 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 const ConfirmationEmail = () => {
   const [searchParams] = useSearchParams();
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const hash = searchParams.get("hash");
@@ -18,10 +18,7 @@ const ConfirmationEmail = () => {
     confirmEmail();
   }, []);
 
-  return (
-    <div className="">
-    </div>
-  );
+  return <div className=""></div>;
 };
 
 export default ConfirmationEmail;

@@ -1,5 +1,9 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { registerBody, ConfirmEmailBody, LoginBody } from "modules/auth/types/auth";
+import {
+  registerBody,
+  ConfirmEmailBody,
+  LoginBody,
+} from "modules/auth/types/auth";
 import { confirmEmail, emailLogin, getMe, register } from "../api/auth.service";
 
 export const useRegisterMutation = () =>
@@ -26,7 +30,7 @@ export const useGetMeQuery = () =>
       const res = await getMe();
       return res;
     },
-  })
+  });
 
 export const useLoginMutation = () =>
   useMutation({
