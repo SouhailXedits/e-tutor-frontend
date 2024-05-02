@@ -1,6 +1,12 @@
-import { IPayementCard } from "../types/payementCard";
+import { IPayementCard } from "../../types/payementCard";
 
-export default function PayementCard({ card , isSelected}: {card: IPayementCard, isSelected: boolean}) {
+export default function PayementCard({
+  card,
+  isSelected,
+}: {
+  card: any;
+  isSelected: boolean;
+}) {
   const { id, type, number, expiry, owner } = card;
   const image = `/icons/payement/${type}.webp`;
   return (

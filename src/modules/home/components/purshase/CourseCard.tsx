@@ -1,4 +1,4 @@
-import { ICourse } from "../types/course";
+import { ICourse } from "../../types/course";
 
 function CourseCard({ course }: { course: ICourse }) {
   return (
@@ -8,7 +8,7 @@ function CourseCard({ course }: { course: ICourse }) {
         <p className=" flex gap-3 text-sm font-light text-gray-500">
           course by :
           {course.instructors.map((instructor: any) => (
-            <span className=" text-gray-800" key={instructor.id}> 
+            <span className=" text-gray-800" key={instructor.id}>
               {instructor.firstName} {instructor.lastName}
             </span>
           ))}

@@ -2,6 +2,7 @@ import { Route } from "react-router-dom";
 import PrivateRoute from "modules/shared/routes/PrivateRoute";
 import Home from "../views/Home";
 import Purshases from "../views/Purshases";
+import PaymentGateway from "../components/purshase/PayementGateway";
 
 export const useHomeRoutes = () => {
   return (
@@ -18,7 +19,9 @@ export const useHomeRoutes = () => {
         path="/purshases"
         element={
           <PrivateRoute>
-            <Purshases />
+            <PaymentGateway>
+              <Purshases />
+            </PaymentGateway>
           </PrivateRoute>
         }
       />

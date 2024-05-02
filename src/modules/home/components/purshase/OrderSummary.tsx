@@ -1,6 +1,7 @@
+import { ICourse } from "modules/home/types/course";
 import Button from "modules/shared/components/Button/Button";
-
-function OrderSummary({ cartItems }: any) {
+function OrderSummary({ cartItems }: { cartItems: ICourse[] }) {
+  
   const subtotal = cartItems.reduce(
     (acc: number, item: any) => acc + item.price,
     0
@@ -10,6 +11,7 @@ function OrderSummary({ cartItems }: any) {
     0
   );
   const total = subtotal - discount;
+
   return (
     <div className=" p-5 border flex flex-col gap-3">
       <p className="text-xl font-semibold">Order Summary</p>

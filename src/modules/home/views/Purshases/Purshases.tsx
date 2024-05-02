@@ -1,18 +1,23 @@
-import CourseCard from "modules/home/components/CourseCard";
-import CreateCardForm from "modules/home/components/CreateCardForm";
-import PayementCard from "modules/home/components/PayementCard";
+import CourseCard from "modules/home/components/purshase/CourseCard";
+import CreateCardForm from "modules/home/components/purshase/CreateCardForm";
+import PayementCard from "modules/home/components/purshase/PayementCard";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { type payementCardInput } from "../../types/payementCardInput";
 import { useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
-import OrderSummary from "modules/home/components/OrderSummary";
 import {
   fakeCourses,
   oldCards,
 } from "modules/home/services/fakeData/fakePurshaseData";
 import { IPayementCard } from "modules/home/types/payementCard";
+import { ICourse } from "modules/home/types/course";
+import PaymentGateway from "modules/home/components/purshase/PayementGateway";
+import OrderSummary from "modules/home/components/purshase/OrderSummary";
+import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
+import { usePayementMutation } from "modules/home/services/queries/payement.query";
+import { useNavigate } from "react-router";
 
 const payementCardSchema = yup.object().shape({
   name: yup.string().required("name is required"),
@@ -33,32 +38,75 @@ const payementCardSchema = yup.object().shape({
 
 const Purshase = () => {
   const [isCreateCardFormOpen, setIsCreateCardFormOpen] = useState(false);
+  const navigate = useNavigate();
   const [selectedCard, setSelectedCard] = useState<IPayementCard | null>(null);
-  const cartItems = fakeCourses;
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset: resetForm,
-  } = useForm<payementCardInput>({
-    resolver: yupResolver(payementCardSchema),
-  });
-  const onSubmit: SubmitHandler<payementCardInput> = async (data) => {
+  const { mutateAsync: pay } = usePayementMutation();
+  const cartItems: ICourse[] = fakeCourses;
+  const stripe = useStripe();
+  const elements = useElements();
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  //   reset: resetForm,
+  // } = useForm<payementCardInput>({
+  //   resolver: yupResolver(payementCardSchema),
+  // });
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const cart = cartItems.map((item) => ({ id: item.id }));
+
+    console.log(cart);
+    if (!stripe || !elements) return;
+    const cardElement = elements.getElement(CardElement);
+    if (!cardElement) return;
+    const card = await stripe.createPaymentMethod({
+      type: "card",
+      card: cardElement,
+    });
+    const res = (await pay({ courses: cart })) as any;
+    console.log(res)
+    const clientSecret = res?.client_secret;
+    const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: cardElement,
+      },
+    });
+
+    console.log(paymentIntent);
+
+    if (!paymentIntent) return;
+    if(paymentIntent.status === "succeeded"){
+      navigate("/home")
+    }
+
+    console.log(card);
     // console.log(data);
   };
+  // const onSubmit: SubmitHandler<payementCardInput> = async (data) => {
+  //   if (!stripe || !elements) return;
+  //   const cardElement = elements.getElement(CardElement);
+  //   if (!cardElement) return;
+  //   const card = await stripe.createPaymentMethod({
+  //     type: "card",
+  //     card: cardElement,
+  //   });
+  //   console.log(card)
+  //   // console.log(data);
+  // };
   const handleCardSelection = (card: IPayementCard) => {
     setSelectedCard(card);
     setIsCreateCardFormOpen(false);
-    resetForm();
+    // resetForm();
   };
   const handleFormToggle = () => {
     setIsCreateCardFormOpen((prev) => !prev);
     setSelectedCard(null);
-    resetForm();
+    // resetForm();
   };
 
   return (
-    <form className="mt-5" onSubmit={handleSubmit(onSubmit)}>
+    <form className="mt-5" onSubmit={(e) => handleSubmit(e)}>
       <div className=" flex flex-col items-center transition-all">
         <div className=" bg-gray-50 text-center py-10 flex flex-col gap-4 w-full">
           <h2 className="text-3xl font-semibold">checkout</h2>
@@ -71,7 +119,7 @@ const Purshase = () => {
           <div className="flex flex-col gap-4 w-full">
             <h2 className="text-3xl font-semibold w-full">Payement methode</h2>
             <div className="flex flex-col gap-4">
-              {oldCards.map((card) => {
+              {/* {oldCards.map((card: IPayementCard) => {
                 return (
                   <div onClick={() => handleCardSelection(card)} key={card.id}>
                     <PayementCard
@@ -80,7 +128,7 @@ const Purshase = () => {
                     />
                   </div>
                 );
-              })}
+              })} */}
               <div
                 className={`flex border p-2 gap-2 items-center justify-between ${isCreateCardFormOpen && "border-success-500"} cursor-pointer`}
                 onClick={handleFormToggle}
@@ -95,12 +143,13 @@ const Purshase = () => {
                 />
               </div>
               {isCreateCardFormOpen && (
-                <CreateCardForm
-                  register={register}
-                  errors={errors}
-                  onSubmit={onSubmit}
-                  handleSubmit={handleSubmit}
-                />
+                <CreateCardForm />
+                // <CreateCardForm
+                //   register={register}
+                //   errors={errors}
+                //   onSubmit={onSubmit}
+                //   handleSubmit={handleSubmit}
+                // />
               )}
             </div>
           </div>
@@ -109,7 +158,7 @@ const Purshase = () => {
               <p className="text-xl font-semibold">
                 Courses: {cartItems.length}
               </p>
-              {cartItems.map((item) => {
+              {cartItems.map((item: ICourse) => {
                 return <CourseCard course={item} key={item.id} />;
               })}
             </div>
