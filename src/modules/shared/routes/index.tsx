@@ -1,13 +1,30 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { useAuthRoutes } from "modules/auth/routes";
-import { useHomeRoutes } from "modules/home/routes";
 import NotFound from "../pages/NotFound";
-import useAuthStore from "../store/useAuthStore";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useStudentHomeRoutes } from "modules/student/home/routes";
+import { useHomeRoutes } from "modules/instructor/home/routes";
+import { IUser } from "modules/student/home/types/user";
+import { getMe } from "modules/auth/data/api/auth.service";
 
 const authRoutes = useAuthRoutes();
-const homeRoutes = useHomeRoutes();
+const instructorHomeRoutes = useHomeRoutes();
+const studentHomeRoutes = useStudentHomeRoutes();
 function Router() {
-  const { isAuthenticated } = useAuthStore();
+  const { data: user } = useQuery<any>({
+    queryKey: ["user"],
+    queryFn: async() => await getMe(),
+  });
+  console.log(user)
+  let isInstructor = false;
+  if(user?.role?.id === 1 || user?.role?.id === 3){
+    isInstructor = true
+  }
+  console.log(isInstructor)
+
+  // const queryClient = useQueryClient();
+  // const user = queryClient.getQueryData(["user"]) as IUser;
+
 
   return (
     <BrowserRouter>
@@ -15,7 +32,8 @@ function Router() {
         <Route path="/" element={<Navigate to="/login" />} />
 
         {authRoutes}
-        {homeRoutes}
+        { isInstructor && instructorHomeRoutes}
+        { !isInstructor && studentHomeRoutes}
 
         <Route path="*" element={<NotFound />} />
       </Routes>

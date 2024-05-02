@@ -1,5 +1,5 @@
-import { ICourse } from "modules/home/types/course";
-import { IPayementCard } from "modules/home/types/payementCard";
+import { ICourse } from "../../types/course";
+import { IPayementCard } from "../../types/payementCard";
 
 export const fakeCourses: ICourse[] = [
   {

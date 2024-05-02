@@ -1,10 +1,8 @@
-import {
-  type GetHomeResponse,
-  type GetHomesProps,
-} from "modules/home/types/home";
+
 import api from "modules/shared/api/axios.config";
 import postData from "modules/shared/api/axiosHelpers/postData";
 import { newsApiKey } from "modules/shared/lib/config";
+import { GetHomeResponse, GetHomesProps } from "../../types/home";
 
 export const getHomes = async (
   params: GetHomesProps

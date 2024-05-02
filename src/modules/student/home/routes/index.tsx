@@ -16,7 +16,7 @@ import Messages from "../components/Home/HomeViews/Messages";
 import Wishlist from "../components/Home/HomeViews/Wishlist";
 import PurchaseHistory from "../components/Home/HomeViews/PurchaseHistory";
 
-export const useHomeRoutes = () => {
+export const useStudentHomeRoutes = () => {
   return (
     <Route path="/" element={<StudentMainLayout />}>
       <Route

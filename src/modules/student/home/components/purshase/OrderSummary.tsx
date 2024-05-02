@@ -1,7 +1,6 @@
-import { ICourse } from "modules/home/types/course";
 import Button from "modules/shared/components/Button/Button";
+import { ICourse } from "../../types/course";
 function OrderSummary({ cartItems }: { cartItems: ICourse[] }) {
-  
   const subtotal = cartItems.reduce(
     (acc: number, item: any) => acc + item.price,
     0

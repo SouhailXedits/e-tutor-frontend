@@ -1,23 +1,19 @@
-import CourseCard from "modules/home/components/purshase/CourseCard";
-import CreateCardForm from "modules/home/components/purshase/CreateCardForm";
-import PayementCard from "modules/home/components/purshase/PayementCard";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+
 import * as yup from "yup";
 import { type payementCardInput } from "../../types/payementCardInput";
 import { useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
-import {
-  fakeCourses,
-  oldCards,
-} from "modules/home/services/fakeData/fakePurshaseData";
-import { IPayementCard } from "modules/home/types/payementCard";
-import { ICourse } from "modules/home/types/course";
-import PaymentGateway from "modules/home/components/purshase/PayementGateway";
-import OrderSummary from "modules/home/components/purshase/OrderSummary";
+
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
-import { usePayementMutation } from "modules/home/services/queries/payement.query";
+
 import { useNavigate } from "react-router";
+import { IPayementCard } from "../../types/payementCard";
+import { usePayementMutation } from "../../services/queries/payement.query";
+import { fakeCourses } from "../../services/fakeData/fakePurshaseData";
+import { ICourse } from "../../types/course";
+import CreateCardForm from "../../components/purshase/CreateCardForm";
+import CourseCard from "../../components/purshase/CourseCard";
+import OrderSummary from "../../components/purshase/OrderSummary";
 
 const payementCardSchema = yup.object().shape({
   name: yup.string().required("name is required"),
@@ -70,8 +66,8 @@ const Purshase = () => {
       },
     });
     if (!paymentIntent) return;
-    if(paymentIntent.status === "succeeded"){
-      navigate("/home")
+    if (paymentIntent.status === "succeeded") {
+      navigate("/home");
     }
   };
   const handleFormToggle = () => {

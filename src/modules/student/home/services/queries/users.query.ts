@@ -1,9 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { payCourses } from "../api/payement.service";
-import { IPayementBody } from "modules/home/types/payement";
 import { toast } from "react-toastify";
-import { IUpdateStudentProfile } from "modules/home/types/user";
 import { updateStudentProfile } from "../api/users.service";
+import { IUpdateStudentProfile } from "../../types/user";
 
 export const useUpdateStudentProfileMutation = () => {
   const queryClient = useQueryClient();
@@ -25,7 +23,6 @@ export const useUpdateStudentProfileMutation = () => {
       toast.error(errMessage);
     },
     onSuccess: () => {
-
       queryClient.invalidateQueries({
         queryKey: ["user"],
       });
@@ -33,5 +30,4 @@ export const useUpdateStudentProfileMutation = () => {
       toast.success("Profile updated successfully!");
     },
   });
-
-}
+};

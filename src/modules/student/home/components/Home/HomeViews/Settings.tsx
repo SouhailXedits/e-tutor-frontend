@@ -1,15 +1,17 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
-import { useUpdateStudentProfileMutation } from "modules/home/services/queries/users.query";
-import { IUpdateStudentProfile, IUser } from "modules/home/types/user";
+
 import Button from "modules/shared/components/Button/Button";
 import ImageUploader from "modules/shared/components/ImageUploader";
 import Input from "modules/shared/components/Input/Input";
+import { useUpdateStudentProfileMutation } from "modules/student/home/services/queries/users.query";
+import { IUpdateStudentProfile, IUser } from "modules/student/home/types/user";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 
 function Settings() {
-  const { mutateAsync: updateStudentProfile } = useUpdateStudentProfileMutation();
+  const { mutateAsync: updateStudentProfile } =
+    useUpdateStudentProfileMutation();
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(["user"]) as IUser;
   const {
@@ -30,8 +32,8 @@ function Settings() {
   });
 
   const onSubmit: SubmitHandler<IUpdateStudentProfile> = async (data) => {
-    const userId = user.id
-    data.photo = ''
+    const userId = user.id;
+    data.photo = "";
     const filteredData = Object.fromEntries(
       Object.entries(data).filter(([key, value]) => value !== "")
     );
