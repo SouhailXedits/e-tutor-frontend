@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import postData from "modules/shared/api/axiosHelpers/postData";
-import useStepsContext from "../context/StepsContext";
+import useStepsContext from "modules/instructor/views/create-course/context/StepsContext";
 export interface IBasicInformationFormData {
   category: number;
   duration: string;

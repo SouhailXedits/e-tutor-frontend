@@ -2,8 +2,8 @@ import { type Dispatch, type SetStateAction } from "react";
 import { toast } from "react-toastify";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import patchData from "modules/shared/api/axiosHelpers/updateData";
-import useStepsContext from "../context/StepsContext";
 import { type IBasicInformationFormData } from "./usePostCourse";
+import useStepsContext from "modules/instructor/views/create-course/context/StepsContext";
 export interface IUpdateCourse extends IBasicInformationFormData {
   // Step2
   thumbnail: string;

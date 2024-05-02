@@ -7,7 +7,7 @@ function UserProfile() {
   return (
     <div className=" flex items-center gap-4 p-1">
       <img
-        src={user?.photo || "/users/default-user-image.webp"}
+        src={user?.photo.path || "/users/default-user-image.webp"}
         alt="user image"
         className="w-24 h-24 rounded-full"
       />

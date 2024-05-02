@@ -18,7 +18,10 @@ export interface IUser {
   instagram: string | null;
   whatsapp: string | null;
   youtube: string | null;
-  photo: string | null;
+  photo: {
+    id: number;
+    path: string;
+  };
   role: {
     id: number;
     name: string;

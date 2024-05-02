@@ -7,13 +7,11 @@ import useCategories from "modules/shared/queries/useCategories";
 import useLanguage from "modules/shared/queries/useLanguage";
 import useSubategories from "modules/shared/queries/useSubcategories";
 import { CourseLevelEnum } from "modules/shared/types/db";
-import {
-  type IBasicInformationFormData,
-  usePostCourse,
-} from "../../../service/usePostCourse";
-import { useUpdateCourse } from "../../../service/useUpdateCourse";
+
 import StepContainer from "../../StepContainer/StepContainer";
 import useCourse from "modules/shared/queries/useCourse";
+import { type IBasicInformationFormData, usePostCourse } from "modules/instructor/home/views/create-course/service/usePostCourse";
+import { useUpdateCourse } from "modules/instructor/home/views/create-course/service/useUpdateCourse";
 
 function BasicInformation() {
   const [searchParams] = useSearchParams();
