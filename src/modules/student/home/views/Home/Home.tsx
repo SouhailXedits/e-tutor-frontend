@@ -7,7 +7,6 @@ import HomeRoutesTabs from "../../components/Home/HomeStudentsRoutesTabs";
 const Home = () => {
   return (
     <div className=" flex flex-col items-center">
-      {/* <Button variant="primary" onClick={handleLogout} >Logout</Button> */}
       <div className=" bg-primary-100 h-[200px] w-full"></div>
       <div className=" relative top-[-150px] w-[60%]">
         <div className="bg-white flex items-center justify-between p-10 border border-primary-100">

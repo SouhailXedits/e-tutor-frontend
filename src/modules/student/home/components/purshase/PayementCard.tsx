@@ -1,4 +1,4 @@
-import { IPayementCard } from "../../types/payementCard";
+import { IPayementCard } from "../../../../shared/types/payementCard";
 
 export default function PayementCard({
   card,

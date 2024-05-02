@@ -1,5 +1,5 @@
-import { type ICourse } from "../../types/course";
-import { type IPayementCard } from "../../types/payementCard";
+import { type ICourse } from "../../../../shared/types/course";
+import { type IPayementCard } from "../../../../shared/types/payementCard";
 
 export const fakeCourses: ICourse[] = [
   {

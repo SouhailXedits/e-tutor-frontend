@@ -59,7 +59,7 @@ function Settings() {
               placeholder="First Name"
               register={register}
               errors={errors}
-              className=" gap-3 w-full"
+              containerClassName=" mt-1 gap-3 w-full"
             />
             <Input
               id="lastName"
@@ -67,7 +67,7 @@ function Settings() {
               placeholder="Last Name"
               register={register}
               errors={errors}
-              className=" gap-3 w-full"
+              containerClassName=" mt-1 gap-3 w-full"
             />
           </div>
           <Input
@@ -77,7 +77,7 @@ function Settings() {
             placeholder="Username..."
             register={register}
             errors={errors}
-            className=" gap-3 w-full"
+            containerClassName=" mt-1 gap-3 w-full"
           />
           <Input
             id="email"
@@ -87,7 +87,7 @@ function Settings() {
             placeholder="Email adress"
             register={register}
             errors={errors}
-            className=" gap-3 w-full"
+            containerClassName=" mt-1 gap-3 w-full"
           />
           <Input
             id="title"
@@ -96,12 +96,12 @@ function Settings() {
             placeholder="Your tittle, proffesion or small biography"
             register={register}
             errors={errors}
-            className=" gap-3 w-full"
+            containerClassName=" mt-1 gap-3 w-full"
           />
           <Button
             type="submit"
             // isLoading={isLoading}
-            className="flex gap-2 px-6"
+            className="flex gap-2 px-6 mt-2"
             size="lg"
           >
             Save Changes

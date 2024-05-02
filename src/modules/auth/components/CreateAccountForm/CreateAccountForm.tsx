@@ -47,7 +47,7 @@ function CreateAccountForm() {
           placeholder="First Name"
           register={register}
           errors={errors}
-          className=" gap-3 w-full"
+          containerClassName=" gap-3 w-full"
         />
         <Input
           id="lastName"
@@ -55,7 +55,7 @@ function CreateAccountForm() {
           placeholder="Username or email address..."
           register={register}
           errors={errors}
-          className=" gap-3 w-full"
+          containerClassName=" gap-3 w-full"
         />
       </div>
       <Input
@@ -65,7 +65,7 @@ function CreateAccountForm() {
         placeholder="Username..."
         register={register}
         errors={errors}
-        className=" gap-3 w-full"
+        containerClassName=" gap-3 w-full"
       />
       <Input
         id="email"
@@ -75,7 +75,7 @@ function CreateAccountForm() {
         placeholder="Email adress"
         register={register}
         errors={errors}
-        className=" gap-3 w-full"
+        containerClassName=" gap-3 w-full"
       />
 
       <div className=" flex items-center gap-4 w-full justify-between">
@@ -87,7 +87,7 @@ function CreateAccountForm() {
           placeholder="Password"
           register={register}
           errors={errors}
-          className=" gap-3 w-full"
+          containerClassName=" gap-3 w-full"
         />
         <Input
           id="confirmPassword"
@@ -97,7 +97,7 @@ function CreateAccountForm() {
           placeholder="Confirm Password"
           register={register}
           errors={errors}
-          className=" gap-3 w-full"
+          containerClassName=" gap-3 w-full"
         />
       </div>
 

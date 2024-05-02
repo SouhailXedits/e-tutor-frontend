@@ -1,6 +1,6 @@
 import { type ReactElement } from "react";
 import { Navigate } from "react-router";
-import { useGetMe } from "../querys/useGetMe";
+import { useGetMe } from "../queries/useGetMe";
 
 interface Props {
   children: ReactElement;

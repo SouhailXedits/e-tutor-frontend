@@ -16,7 +16,7 @@ import { useNavigate } from "react-router";
 
 function LoginForm() {
   const navigate = useNavigate();
-  const { isPending, mutateAsync: login, isError, error } = useLoginMutation();
+  const { isPending, mutateAsync: login } = useLoginMutation();
   const {
     register,
     handleSubmit,
@@ -35,19 +35,19 @@ function LoginForm() {
     navigate("/home");
   };
 
-  useEffect(() => {
-    if (isError) {
-      const loginError = error as any;
-      const errorResponse = loginError?.response?.data;
-      const errMessage =
-        errorResponse.message ||
-        Object.values(errorResponse.errors)
-          .map((err: any) => err)
-          .join(", ") ||
-        "Something went wrong";
-      toast.error(errMessage, { theme: "colored" });
-    }
-  }, [isError]);
+  // useEffect(() => {
+  //   if (isError) {
+  //     const loginError = error as any;
+  //     const errorResponse = loginError?.response?.data;
+  //     const errMessage =
+  //       errorResponse.message ||
+  //       Object.values(errorResponse.errors)
+  //         .map((err: any) => err)
+  //         .join(", ") ||
+  //       "Something went wrong";
+  //     toast.error(errMessage, { theme: "colored" });
+  //   }
+  // }, [isError]);
   return (
     <form className="" onSubmit={handleSubmit(onSubmit)}>
       <p className="text-center text-3xl mb-8 font-semibold">

@@ -38,7 +38,9 @@ const Input = <T extends FieldValues, U extends FieldValues>({
   ...rest
 }: Props<T, U>) => {
   return (
-    <div className={cn(`flex flex-col gap-1 relative`, containerClassName)}>
+    <div
+      className={cn(`flex flex-col mb-2 gap-1 relative`, containerClassName)}
+    >
       <label className="flex text-sm" htmlFor={name}>
         {label ?? ""}
       </label>

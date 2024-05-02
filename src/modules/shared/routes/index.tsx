@@ -3,7 +3,7 @@ import { useAuthRoutes } from "modules/auth/routes";
 import { useHomeRoutes } from "modules/instructor/home/routes";
 import { useStudentHomeRoutes } from "modules/student/home/routes";
 import NotFound from "../pages/NotFound";
-import { useGetMe } from "../querys/useGetMe";
+import { useGetMe } from "../queries/useGetMe";
 
 const Router = () => {
   const authRoutes = useAuthRoutes();

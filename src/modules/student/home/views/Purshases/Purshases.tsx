@@ -8,8 +8,8 @@ import CreateCardForm from "../../components/purshase/CreateCardForm";
 import OrderSummary from "../../components/purshase/OrderSummary";
 import { fakeCourses } from "../../services/fakeData/fakePurshaseData";
 import { usePayementMutation } from "../../services/queries/payement.query";
-import { type ICourse } from "../../types/course";
-import { type IPayementCard } from "../../types/payementCard";
+import { type ICourse } from "../../../../shared/types/course";
+import { type IPayementCard } from "../../../../shared/types/payementCard";
 
 const payementCardSchema = yup.object().shape({
   name: yup.string().required("name is required"),
