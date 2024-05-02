@@ -1,51 +1,12 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useQueryClient } from "@tanstack/react-query";
-
-import Button from "modules/shared/components/Button/Button";
 import ImageUploader from "modules/shared/components/ImageUploader";
+import Button from "modules/shared/components/Button/Button";
 import Input from "modules/shared/components/Input/Input";
-import { useUpdateStudentProfileMutation } from "modules/student/home/services/queries/users.query";
-import { IUpdateStudentProfile, IUser } from "modules/student/home/types/user";
-import { SubmitHandler, useForm } from "react-hook-form";
-import * as yup from "yup";
-
-function Settings() {
-  const { mutateAsync: updateStudentProfile } =
-    useUpdateStudentProfileMutation();
-  const queryClient = useQueryClient();
-  const user = queryClient.getQueryData(["user"]) as IUser;
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IUpdateStudentProfile>({
-    resolver: yupResolver(
-      yup.object().shape({
-        photo: yup.string().optional(),
-        firstName: yup.string().optional(),
-        lastName: yup.string().optional(),
-        username: yup.string().optional(),
-        email: yup.string().email().optional(),
-        title: yup.string().max(50).optional(),
-      })
-    ),
-  });
-
-  const onSubmit: SubmitHandler<IUpdateStudentProfile> = async (data) => {
-    const userId = user.id;
-    data.photo = "";
-    const filteredData = Object.fromEntries(
-      Object.entries(data).filter(([key, value]) => value !== "")
-    );
-
-    await updateStudentProfile({ id: userId, body: filteredData });
-  };
-  return (
-    <div className=" py-5">
-      <h2 className=" text-xl text-gray-800 font-semibold">Account settings</h2>
+import { useState } from "react";
+function UpdateStudentProfileForm({handleSubmit, register, errors, onSubmit, selectedImage, setSelectedImage}: any) {
+    return (
       <form className=" flex w-full gap-12" onSubmit={handleSubmit(onSubmit)}>
         <div className=" border w-[30%] p-5 flex flex-col items-center gap-4">
-          <ImageUploader register={register} name="photo" />
+          <ImageUploader register={register} name="photo" selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
           <p className=" text-gray-500 text-sm">
             Image size should be under 1MB and image ration needs to be 1:1
           </p>
@@ -108,9 +69,7 @@ function Settings() {
           </Button>
         </div>
       </form>
-      <div></div>
-    </div>
-  );
+    );
 }
 
-export default Settings;
+export default UpdateStudentProfileForm

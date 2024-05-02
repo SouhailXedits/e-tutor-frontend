@@ -37,5 +37,5 @@ export interface IUpdateStudentProfile {
   username?: string;
   email?: string;
   title?: string;
-  photo?: string;
+  photo?: {id: number};
 }

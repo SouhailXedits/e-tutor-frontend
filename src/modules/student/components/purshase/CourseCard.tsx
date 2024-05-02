@@ -1,4 +1,4 @@
-import { ICourse } from "../../../../shared/types/course";
+import { ICourse } from "../../../shared/types/course";
 
 function CourseCard({ course }: { course: ICourse }) {
   return (

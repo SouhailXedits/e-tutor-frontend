@@ -1,9 +1,9 @@
 import { Outlet, Route } from "react-router-dom";
-import CreateCourse from "modules/instructor/home/views/create-course";
-import Earnings from "modules/instructor/home/views/earnings";
-import Messages from "modules/instructor/home/views/messages";
-import MyCourses from "modules/instructor/home/views/my-courses";
-import Settings from "modules/instructor/home/views/settings";
+import CreateCourse from "modules/instructor/views/create-course";
+import Earnings from "modules/instructor/views/earnings";
+import Messages from "modules/instructor/views/messages";
+import MyCourses from "modules/instructor/views/my-courses";
+import Settings from "modules/instructor/views/settings";
 import SideBar from "modules/shared/components/SideBar";
 import TopBar from "modules/shared/components/TopBar";
 import PrivateRoute from "modules/shared/routes/PrivateRoute";

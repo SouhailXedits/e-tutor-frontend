@@ -9,7 +9,7 @@ import { DropdownMenu } from "components/ui/dropdown-menu";
 import { ShoppingCart } from "lucide-react";
 import { useLogoutMutation } from "modules/auth/data/queries/auth.query";
 import Button from "modules/shared/components/Button";
-import { type IUser } from "modules/student/home/types/user";
+import { type IUser } from "modules/student/types/user";
 import Logo from "../../Logo";
 
 const StudentHeader = () => {

@@ -3,11 +3,14 @@ import { ImageIcon } from "lucide-react";
 import { Path } from "react-hook-form";
 import { toast } from "react-toastify";
 
-function ImageUploader ({register, name}: {
+function ImageUploader ({register, name, selectedImage, setSelectedImage}: {
     register: any,
-    name: Path<any>
+    name: Path<any>,
+    selectedImage: any,
+    setSelectedImage: any
 }) {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [preview, setPreview] = useState<string | undefined>(undefined);
+  
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -24,11 +27,14 @@ function ImageUploader ({register, name}: {
               "Image aspect ratio must be 1:1. Please choose a square image."
             );
           } else {
-            setSelectedImage(reader.result as string);
+            setPreview(reader.result as string);
+            setSelectedImage(file);
           }
         };
       };
       reader.readAsDataURL(file);
+      console.log(file)
+      register({name, value: file});
     }
   };
 
@@ -44,13 +50,12 @@ function ImageUploader ({register, name}: {
         id="fileInput"
         type="file"
         accept="image/*"
-        {...register(name as Path<any>)}
         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
         onChange={handleImageChange}
       />
-      {selectedImage ? (
+      {preview ? (
         <img
-          src={selectedImage}
+          src={preview}
           alt="Preview"
           className="object-cover cursor-pointer "
           onClick={handleClick}

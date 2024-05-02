@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useAuthRoutes } from "modules/auth/routes";
-import { useHomeRoutes } from "modules/instructor/home/routes";
-import { useStudentHomeRoutes } from "modules/student/home/routes";
+import { useHomeRoutes } from "modules/instructor/routes";
+import { useStudentHomeRoutes } from "modules/student/routes";
 import NotFound from "../pages/NotFound";
 import { useGetMe } from "../queries/useGetMe";
 
