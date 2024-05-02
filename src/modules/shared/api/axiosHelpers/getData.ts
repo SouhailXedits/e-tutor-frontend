@@ -35,7 +35,6 @@ export default async function getData<T>({
       limit: pagination.limit.toString(),
     }), // convert page and limit to string
   })}`;
-  console.log("🚀 ~ requestPath:", requestPath);
   const options = {
     method: "GET",
     url: requestPath,

@@ -8,7 +8,6 @@ export default async function sendAxiosRequest<T>(
   return await api
     .request(options)
     .then((response) => {
-      console.log("🚀 ~ .then ~ response:", response);
       return response.data;
     })
     .catch((error: AxiosError) => {

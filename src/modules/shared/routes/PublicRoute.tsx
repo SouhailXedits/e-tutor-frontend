@@ -19,7 +19,6 @@ const PublicRoute: React.FC<Props> = ({ children }) => {
   });
   useEffect(() => {
     if (isSuccess) {
-      console.log(data);
       setIsAuthenticated(true);
     } else {
       setIsAuthenticated(false);

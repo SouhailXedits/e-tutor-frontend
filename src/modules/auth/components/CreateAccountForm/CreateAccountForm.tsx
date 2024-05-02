@@ -16,15 +16,10 @@ import { useNavigate } from "react-router-dom";
 function CreateAccountForm() {
   const {
     isPending: isLoading,
-    mutateAsync: login,
-    isError,
-    error,
+    mutateAsync: login
   } = useRegisterMutation();
   const navigate = useNavigate();
   
-
-  // const { setIsAuthenticated } = useAuthStore((state) => state);
-
   const {
     register,
     handleSubmit,
@@ -46,12 +41,6 @@ function CreateAccountForm() {
     navigate("/confirm");
   };
 
-  useEffect(() => {
-    if (isError) {
-      console.log(error)
-      toast.error((error)?.message, { theme: 'colored' });
-    }
-  }, [isError]);
   return (
     <form className="" onSubmit={handleSubmit(onSubmit)}>
       <p className="text-center text-3xl mb-8 font-semibold">

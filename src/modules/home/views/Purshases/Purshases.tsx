@@ -55,8 +55,6 @@ const Purshase = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const cart = cartItems.map((item) => ({ id: item.id }));
-
-    console.log(cart);
     if (!stripe || !elements) return;
     const cardElement = elements.getElement(CardElement);
     if (!cardElement) return;
@@ -65,44 +63,20 @@ const Purshase = () => {
       card: cardElement,
     });
     const res = (await pay({ courses: cart })) as any;
-    console.log(res)
     const clientSecret = res?.client_secret;
     const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: cardElement,
       },
     });
-
-    console.log(paymentIntent);
-
     if (!paymentIntent) return;
     if(paymentIntent.status === "succeeded"){
       navigate("/home")
     }
-
-    console.log(card);
-    // console.log(data);
-  };
-  // const onSubmit: SubmitHandler<payementCardInput> = async (data) => {
-  //   if (!stripe || !elements) return;
-  //   const cardElement = elements.getElement(CardElement);
-  //   if (!cardElement) return;
-  //   const card = await stripe.createPaymentMethod({
-  //     type: "card",
-  //     card: cardElement,
-  //   });
-  //   console.log(card)
-  //   // console.log(data);
-  // };
-  const handleCardSelection = (card: IPayementCard) => {
-    setSelectedCard(card);
-    setIsCreateCardFormOpen(false);
-    // resetForm();
   };
   const handleFormToggle = () => {
     setIsCreateCardFormOpen((prev) => !prev);
     setSelectedCard(null);
-    // resetForm();
   };
 
   return (

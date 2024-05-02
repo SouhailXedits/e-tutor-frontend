@@ -8,7 +8,6 @@ const authRoutes = useAuthRoutes();
 const homeRoutes = useHomeRoutes();
 function Router() {
   const { isAuthenticated } = useAuthStore();
-  console.log(isAuthenticated);
 
   return (
     <BrowserRouter>

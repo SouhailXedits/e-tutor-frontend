@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { registerBody, ConfirmEmailBody, LoginBody } from "modules/auth/types/auth";
-import { confirmEmail, emailLogin, getMe, googleLogin, register } from "../api/auth.service";
+import { confirmEmail, emailLogin, getMe, googleLogin, logout, register } from "../api/auth.service";
+import { toast } from "react-toastify";
 
 export const useRegisterMutation = () =>
   useMutation({
@@ -45,3 +46,20 @@ export const useGoogleLoginMutation = () =>
       return res;
     },
   });
+
+
+export const useLogoutMutation = () =>
+  useMutation({
+    mutationKey: ["logout"],
+    mutationFn: async () => {
+      const res = await logout();
+      return res;
+    },
+    onSuccess: () => {
+      window.location.href = "/";
+    },
+    onError: (err: any) => {
+      const errMessage = err?.response?.data?.message || "Something went wrong";
+      toast.error(errMessage);
+    },
+  })

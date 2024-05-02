@@ -20,10 +20,8 @@ export async function postData<T>(route: string, data: object): Promise<T> {
     const response: AxiosResponse<T> = await axios.post(route, data, {
       withCredentials: true,
     });
-    console.log(response);
     return response.data;
   } catch (error) {
-    console.log(error);
     console.error("Error posting data:", error);
     throw error;
   }

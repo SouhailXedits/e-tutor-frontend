@@ -4,6 +4,5 @@ import { IPayementBody } from "modules/home/types/payement";
 
 export const payCourses = async (body: IPayementBody) => {
   const res = postData(`${API_ENDPOINT}/purshase`, body);
-  console.log("🚀 ~ confirmEmail ~ res:", res);
   return res
 };
