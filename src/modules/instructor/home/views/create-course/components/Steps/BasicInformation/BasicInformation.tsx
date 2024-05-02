@@ -1,34 +1,34 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { type FieldErrors, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import postData from "modules/shared/api/axiosHelpers/postData";
+import { useSearchParams } from "react-router-dom";
 import Input from "modules/shared/components/Input";
 import Select from "modules/shared/components/Select";
 import useCategories from "modules/shared/querys/useCategories";
+import useCourse from "modules/shared/querys/useCourse";
 import useLanguage from "modules/shared/querys/useLanguage";
 import useSubategories from "modules/shared/querys/useSubcategories";
 import { CourseLevelEnum } from "modules/shared/types/db";
-import useStepsContext from "../../../context/StepsContext";
+import {
+  type IBasicInformationFormData,
+  usePostCourse,
+} from "../../../service/usePostCourse";
+import { useUpdateCourse } from "../../../service/useUpdateCourse";
 import StepContainer from "../../StepContainer/StepContainer";
 
-interface IFormData {
-  category: number;
-  duration: string;
-  language: number;
-  level: string;
-  subcategory: number;
-  subtitle: string;
-  subtitleLanguage: number;
-  title: string;
-  topic: string;
-  unit: "days" | "hours";
-}
 function BasicInformation() {
-  const { nextStep } = useStepsContext();
+  const [searchParams] = useSearchParams();
+  const courseId = searchParams.get("courseId");
+  const { data: courseData } = useCourse({
+    courseId: Number(courseId),
+  });
   // State
   const [apiErrors, setApiErrors] = useState<Record<string, string>>({});
   const [categoryId, setCategoryId] = useState<number | null>(null);
+  useEffect(() => {
+    if (courseData?.category.id) {
+      setCategoryId(courseData.category.id);
+    }
+  }, [courseData?.category.id]);
   const { data: languagesData } = useLanguage();
   const { data: categoriesData } = useCategories();
   const { data: subcategoriesData } = useSubategories({
@@ -39,44 +39,25 @@ function BasicInformation() {
     register,
     handleSubmit,
     formState: { errors: formErrors },
-  } = useForm<IFormData>();
-  const errors: FieldErrors<IFormData> = { ...formErrors, ...apiErrors };
+  } = useForm<IBasicInformationFormData>();
+  const errors: FieldErrors<IBasicInformationFormData> = {
+    ...formErrors,
+    ...apiErrors,
+  };
   // Create a new course mutation
-  const queryClient = useQueryClient();
-  const { mutate, isPending } = useMutation({
-    mutationFn: async (data: IFormData) => {
-      const payload = {
-        ...data,
-        category: { id: data.category },
-        language: { id: data.language },
-        subcategory: { id: data.subcategory },
-        subtitleLanguage: [{ id: data.subtitleLanguage }],
-        duration:
-          data.unit === "days"
-            ? Number(data.duration)
-            : Number(data.duration) / 24,
-      };
-      const { data: res, errors } = await postData("/courses", payload);
-      if (errors) {
-        setApiErrors(errors);
-        throw new Error("An error occurred while creating the course");
-      }
-      // const courseId: number = res?.id;
-      console.log("🚀 ~ mutationFn: ~ res:", res);
-    },
-    onSuccess: () => {
-      toast.success("Course created successfully");
-      nextStep();
-    },
-    onSettled: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["courses"] });
-    },
+  const { mutate: post, isPending: isPending1 } = usePostCourse({
+    setApiErrors,
   });
+  // Update course mutation
+  const { mutate: patch, isPending: isPending2 } = useUpdateCourse({
+    setApiErrors,
+    courseId: Number(courseId),
+  });
+  const isPending = isPending1 || isPending2;
   return (
     <form
       onSubmit={handleSubmit((data) => {
-        console.log("🚀 ~ onSubmit={handleSubmit ~ data:", data);
-        mutate(data);
+        courseId ? patch(data) : post(data);
       })}
     >
       <StepContainer isPending={isPending}>
@@ -87,6 +68,7 @@ function BasicInformation() {
               name="title"
               type="text"
               placeholder="Your course title"
+              defaultValue={courseData?.title}
               register={register}
               errors={errors}
               className=" "
@@ -97,6 +79,7 @@ function BasicInformation() {
               name="subtitle"
               type="text"
               placeholder="Your course subtitle"
+              defaultValue={courseData?.subtitle}
               register={register}
               errors={errors}
               required
@@ -107,6 +90,14 @@ function BasicInformation() {
                 name="category"
                 inputLabel="Select..."
                 register={register}
+                defaultValue={
+                  courseData
+                    ? {
+                        label: courseData.category.name,
+                        value: courseData.category.id,
+                      }
+                    : undefined
+                }
                 options={categoriesData?.data.map((e) => ({
                   label: e.name,
                   value: e.id,
@@ -119,6 +110,14 @@ function BasicInformation() {
                 label="Course Subcategory"
                 name="subcategory"
                 inputLabel="Select..."
+                defaultValue={
+                  courseData
+                    ? {
+                        label: courseData.subcategory.name,
+                        value: courseData.subcategory.id,
+                      }
+                    : undefined
+                }
                 register={register}
                 options={
                   subcategoriesData
@@ -151,6 +150,7 @@ function BasicInformation() {
               name="topic"
               type="text"
               placeholder="What is primarily thaught in this course?"
+              defaultValue={courseData?.topic}
               register={register}
               errors={errors}
               required
@@ -160,6 +160,14 @@ function BasicInformation() {
                 label="Course Language"
                 name="language"
                 inputLabel="Select..."
+                defaultValue={
+                  courseData
+                    ? {
+                        label: courseData.language.name,
+                        value: courseData.language.id,
+                      }
+                    : undefined
+                }
                 register={register}
                 options={languagesData?.data.map((e) => ({
                   label: e.name,
@@ -172,6 +180,14 @@ function BasicInformation() {
                 label="Subtitle Language (Optional)"
                 name="subtitleLanguage"
                 inputLabel="Select..."
+                defaultValue={
+                  courseData
+                    ? {
+                        label: courseData.subtitleLanguage[0].name,
+                        value: courseData.subtitleLanguage[0].id,
+                      }
+                    : undefined
+                }
                 register={register}
                 options={languagesData?.data.map((e) => ({
                   label: e.name,
@@ -184,6 +200,14 @@ function BasicInformation() {
                 label="Course level"
                 name="level"
                 inputLabel="Select..."
+                defaultValue={
+                  courseData
+                    ? {
+                        label: courseData.level,
+                        value: courseData.level,
+                      }
+                    : undefined
+                }
                 register={register}
                 options={Array.from(Object.values(CourseLevelEnum)).map(
                   (e) => ({
@@ -199,6 +223,7 @@ function BasicInformation() {
                   name="duration"
                   type="number"
                   className="h-11"
+                  defaultValue={courseData?.duration}
                   placeholder="Course duration"
                   register={register}
                   errors={errors}
