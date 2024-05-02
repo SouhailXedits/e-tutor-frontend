@@ -1,11 +1,11 @@
 import { Route } from "react-router-dom";
+import CreateCourse from "modules/home/views/create-course";
+import Earnings from "modules/home/views/earnings";
+import Messages from "modules/home/views/messages";
+import MyCourses from "modules/home/views/my-courses";
+import Settings from "modules/home/views/settings";
 import PrivateRoute from "modules/shared/routes/PrivateRoute";
-import CreateCourse from "../views/create-course";
-import Earnings from "../views/earnings";
 import Home from "../views/Home";
-import Messages from "../views/messages";
-import MyCourses from "../views/my-courses";
-import Settings from "../views/settings";
 
 export const useHomeRoutes = () => {
   return (

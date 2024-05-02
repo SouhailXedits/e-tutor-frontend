@@ -1,21 +1,28 @@
-import Button from "modules/shared/components/Button";
-import { FcGoogle as GoogleIcon } from "react-icons/fc";
-import { RiFacebookFill as FacebookIcon } from "react-icons/ri";
+// import { useGoogleLoginMutation } from "modules/auth/data/queries/auth.query";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
+import { GoogleLogin } from "@react-oauth/google";
+import { useGoogleLoginMutation } from "modules/auth/data/queries/auth.query";
 
 function SocialAccountsAuth() {
+  const { mutateAsync: googleSignIn } = useGoogleLoginMutation();
+  const navigate = useNavigate();
+
   return (
-    <div className="">
-      <Button
-        className=" flex gap-3 items-center justify-center w-full"
-        variant="tertiaryGray"
-      >
-        <GoogleIcon />
-        <p>Continue with Google</p>
-      </Button>
-      {/* <Button className=" flex gap-3  items-center" variant="tertiaryGray">
-          <FacebookIcon className="" />
-          <p>Facebook</p>
-        </Button> */}
+    <div className=" w-full">
+      <GoogleLogin
+        onSuccess={async (credentialResponse) => {
+          const token = credentialResponse.credential || "";
+          const user = await googleSignIn(token);
+          if (user) navigate("/home");
+        }}
+        useOneTap={true}
+        size="large"
+        auto_select={true}
+        onError={() => {
+          toast.error("Couldn't log in with Google");
+        }}
+      />{" "}
     </div>
   );
 }

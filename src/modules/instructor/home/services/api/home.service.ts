@@ -1,7 +1,7 @@
 import {
   type GetHomeResponse,
   type GetHomesProps,
-} from "modules/home/types/home";
+} from "modules/instructor/home/types/home";
 import api from "modules/shared/api/axios.config";
 import postData from "modules/shared/api/axiosHelpers/postData";
 import { newsApiKey } from "modules/shared/lib/config";

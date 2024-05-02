@@ -12,20 +12,20 @@ const PublicRoute: React.FC<Props> = ({ children }) => {
   const { isAuthenticated, setIsAuthenticated } = useAuthStore(
     (state) => state,
   );
-  const { data, isSuccess } = useQuery({
+  const { data, isSuccess, isPending } = useQuery({
     queryKey: ["user"],
     queryFn: getMe,
+    retry: false,
   });
   useEffect(() => {
     if (isSuccess) {
-      console.log(data);
       setIsAuthenticated(true);
     } else {
       setIsAuthenticated(false);
     }
-  }, [isSuccess, isAuthenticated, setIsAuthenticated, data]);
+  }, [isSuccess, isAuthenticated, setIsAuthenticated, data, isPending]);
 
-  return isAuthenticated ? <Navigate to="/home" /> : children;
+  return isAuthenticated && !isPending  ? <Navigate to="/home" /> : children;
 };
 
 export default PublicRoute;

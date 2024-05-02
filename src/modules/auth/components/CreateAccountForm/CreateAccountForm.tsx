@@ -1,27 +1,17 @@
-import { useEffect } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { ArrowRight } from "lucide-react";
 import { useRegisterMutation } from "modules/auth/data/queries/auth.query";
 import { type registerBody } from "modules/auth/types/auth";
-// import useAuthStore from 'modules/shared/store/useAuthStore';
-import * as yup from "yup";
 import Button from "modules/shared/components/Button";
 import Input from "modules/shared/components/Input";
-import { ArrowRight } from "lucide-react";
-import { redirect } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+// import useAuthStore from 'modules/shared/store/useAuthStore';
+import * as yup from "yup";
 
 function CreateAccountForm() {
-  const {
-    isPending: isLoading,
-    mutateAsync: login,
-    isError,
-    error,
-  } = useRegisterMutation();
+  const { isPending: isLoading, mutateAsync: login } = useRegisterMutation();
   const navigate = useNavigate();
-
-  // const { setIsAuthenticated } = useAuthStore((state) => state);
 
   const {
     register,
@@ -35,7 +25,7 @@ function CreateAccountForm() {
         lastName: yup.string().required("Last Name is required"),
         email: yup.string().required("Email is required"),
         password: yup.string().required("Password is required"),
-      }),
+      })
     ),
   });
 
@@ -44,12 +34,6 @@ function CreateAccountForm() {
     navigate("/confirm");
   };
 
-  useEffect(() => {
-    if (isError) {
-      console.log(error);
-      toast.error(error?.message, { theme: "colored" });
-    }
-  }, [isError]);
   return (
     <form className="" onSubmit={handleSubmit(onSubmit)}>
       <p className="text-center text-3xl mb-8 font-semibold">

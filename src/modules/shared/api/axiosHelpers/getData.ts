@@ -34,7 +34,6 @@ export default async function getData<T>({
         }
       : {}),
   })}`;
-  console.log("🚀 ~ requestPath:", requestPath);
   const options = {
     method: "GET",
     url: requestPath,
