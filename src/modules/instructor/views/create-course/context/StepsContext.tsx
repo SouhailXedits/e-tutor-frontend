@@ -20,6 +20,7 @@ export function StepsContextProvider({
 export default function useStepsContext() {
   const { currentStep, setCurrentStep } =
     useContext<StepsContextType>(StepsContext);
+  const cuurentStepIndex = steps.map((e) => e.title).indexOf(currentStep ?? "");
   const isFirstStep = currentStep === steps[0].title;
   const isLastStep = currentStep === steps[steps.length - 1].title;
   const nextStep = () => {
@@ -32,5 +33,12 @@ export default function useStepsContext() {
       (old) => steps[steps.map((e) => e.title).indexOf(old ?? "") - 1].title
     );
   };
-  return { nextStep, priviousStep, currentStep, isFirstStep, isLastStep };
+  return {
+    nextStep,
+    priviousStep,
+    currentStep,
+    isFirstStep,
+    isLastStep,
+    cuurentStepIndex,
+  };
 }

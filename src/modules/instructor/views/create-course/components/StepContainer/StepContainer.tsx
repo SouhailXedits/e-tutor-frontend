@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "modules/shared/components/Button";
 import { steps } from "../../constants/steps";
 import useStepsContext from "../../context/StepsContext";
@@ -16,10 +17,11 @@ function StepContainer({
 }) {
   const { currentStep, priviousStep, isFirstStep, isLastStep } =
     useStepsContext();
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col px-6 py-4 w-full h-full gap-2 justify-between">
-      <div className="flex flex-row items-center justify-between">
-        <span className="text-xl font-bold">
+      <div className="flex flex-row items-center justify-between border-b pb-4 mb-4">
+        <span className="text-2xl font-semibold">
           {steps.find((e) => e.title === currentStep)?.title}
         </span>
         <div className="flex flex-row items-center gap-1">
@@ -37,7 +39,7 @@ function StepContainer({
           type="button"
           onClick={() => {
             onBack?.();
-            !isFirstStep && priviousStep();
+            isFirstStep ? navigate("/home") : priviousStep();
           }}
           className="capitalize"
           variant="secondaryGray"

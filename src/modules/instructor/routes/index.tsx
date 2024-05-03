@@ -10,7 +10,6 @@ import PrivateRoute from "modules/shared/routes/PrivateRoute";
 import Dashboard from "../views/dahsboard/Dashboard";
 
 export const useHomeRoutes = () => {
-  console.log("🚀 ~ useHomeRoutes ~ useHomeRoutes:");
   return (
     <Route
       path="/"

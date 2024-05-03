@@ -2,6 +2,7 @@ import React, {
   type Dispatch,
   type ReactNode,
   type SetStateAction,
+  useEffect,
   useState,
 } from "react";
 import {
@@ -52,6 +53,12 @@ export default function Select<T extends FieldValues, U extends FieldValues>({
   registerOptions?: RegisterOptions<T>;
 }) {
   const [open, setOpen] = useState(false);
+  const [value, setValue] = useState<Option["value"]>("");
+  useEffect(() => {
+    if (defaultValue && defaultValue?.value !== value) {
+      setValue(defaultValue.value);
+    }
+  }, [defaultValue?.value]);
   if (!options) return;
   return (
     <FormControl
@@ -71,7 +78,6 @@ export default function Select<T extends FieldValues, U extends FieldValues>({
             className
           )}
           open={open}
-          defaultValue={defaultValue ? String(defaultValue.value) : ""}
           displayEmpty
           onOpen={() => {
             setOpen(true);
@@ -90,10 +96,12 @@ export default function Select<T extends FieldValues, U extends FieldValues>({
           {...register(name as Path<T>, {
             ...(registerOptions ?? {}),
             required: required && "This field is required.",
+            onChange: (e) => {
+              setValueInParent?.(e.target.value as Option["value"]);
+              setValue(e.target.value as Option["value"]);
+            },
           })}
-          onChange={(e) => {
-            setValueInParent?.(e.target.value as Option["value"]);
-          }}
+          value={value}
         >
           {options?.map((option, i) => {
             return (
@@ -118,8 +126,10 @@ export default function Select<T extends FieldValues, U extends FieldValues>({
           )}
         </MuiSelect>
         {errors && errors[name as keyof U] && (
-          <span className="text-red-500 text-xs mt-1 absolute -bottom-5 left-0">
-            {errors[name as keyof U]?.message as string}
+          <span className="text-red-500 text-xs mt-1 absolute top-[100%] left-0 w-full">
+            {(errors[name as keyof U]?.message as string) ??
+              // @ts-expect-error - it works perfectly
+              (errors[name as keyof U] as string)}
           </span>
         )}
       </div>

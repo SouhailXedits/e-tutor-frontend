@@ -1,4 +1,4 @@
-import { type InputHTMLAttributes } from "react";
+import { type InputHTMLAttributes, useEffect, useState } from "react";
 import {
   type FieldErrors,
   type FieldValues,
@@ -21,6 +21,7 @@ export interface Props<
   className?: string;
   containerClassName?: string;
   required?: boolean;
+  showWordsCount?: boolean;
 }
 
 const Input = <T extends FieldValues, U extends FieldValues>({
@@ -29,17 +30,26 @@ const Input = <T extends FieldValues, U extends FieldValues>({
   errors,
   label,
   name,
-  value,
   register,
   registerOptions,
   className,
   containerClassName,
   required,
+  defaultValue,
+  showWordsCount = false,
   ...rest
 }: Props<T, U>) => {
+  const [wordsCount, setWordsCount] = useState<number>(0);
+  const [value, setValue] = useState<typeof defaultValue>("");
+  useEffect(() => {
+    if (defaultValue && defaultValue !== value) {
+      setWordsCount(String(defaultValue).length);
+      setValue(defaultValue);
+    }
+  }, [defaultValue]);
   return (
     <div
-      className={cn(`flex flex-col mb-2 gap-1 relative`, containerClassName)}
+      className={cn(`flex relative flex-col mb-2 gap-1`, containerClassName)}
     >
       <label className="flex text-sm" htmlFor={name}>
         {label ?? ""}
@@ -49,18 +59,30 @@ const Input = <T extends FieldValues, U extends FieldValues>({
           "border p-2 h-11 w-full transition duration-300 ease-in-out rounded-sm placeholder:text-gray-500 pl-4 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50",
           className
         )}
+        maxLength={120}
         placeholder={placeholder}
         disabled={disabled}
-        value={value}
         {...rest}
         {...register(name as Path<T>, {
           ...(registerOptions ?? {}),
           required: required && "This field is required.",
+          onChange: (e) => {
+            setWordsCount(e.target.value.length);
+            setValue(e.target.value);
+          },
         })}
+        value={value}
       />
+      {showWordsCount && (
+        <span className="absolute top-[42.5%] text-sm right-3">
+          {wordsCount} / 120
+        </span>
+      )}
       {errors && errors[name as keyof U] && (
-        <span className="text-red-500 text-xs mt-1 absolute -bottom-5">
-          {errors[name as keyof U]?.message as string}
+        <span className="text-red-500 text-xs mt-1 absolute top-[100%] left-0">
+          {(errors[name as keyof U]?.message as string) ??
+            // @ts-expect-error - it works perfectly
+            (errors[name as keyof U] as string)}
         </span>
       )}
     </div>

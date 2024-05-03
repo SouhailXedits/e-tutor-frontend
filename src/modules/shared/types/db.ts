@@ -56,7 +56,7 @@ export interface CourseType extends GeneralDbType {
   // Step2
   thumbnail: FileType | null;
   trailer: FileType | null;
-  description: JSON | null;
+  description: string | null;
   subjects: string[] | null;
   audience: string[] | null;
   requirements: string[] | null;

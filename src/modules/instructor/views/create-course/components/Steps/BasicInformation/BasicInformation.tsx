@@ -1,24 +1,22 @@
 import { useEffect, useState } from "react";
 import { type FieldErrors, useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
-import { usePostCourse } from "modules/instructor/service/usePostCourse";
-import { useUpdateCourse } from "modules/instructor/service/useUpdateCourse";
-import { type IBasicInformationFormData } from "modules/instructor/types/IBasicInformationFormData";
+import { usePostCourse } from "modules/instructor/views/create-course/service/usePostCourse";
+import { useUpdateCourse } from "modules/instructor/views/create-course/service/useUpdateCourse";
+import { type IBasicInformationFormData } from "modules/instructor/views/create-course/types/IBasicInformationFormData";
 import Input from "modules/shared/components/Input";
 import Select from "modules/shared/components/Select";
 import useCategories from "modules/shared/queries/useCategories";
-import useCourse from "modules/shared/queries/useCourse";
 import useLanguage from "modules/shared/queries/useLanguage";
 import useSubategories from "modules/shared/queries/useSubcategories";
 import { CourseLevelEnum } from "modules/shared/types/db";
+import useCurrentCourse from "../../../hooks/useCurrentCourse";
 import StepContainer from "../../StepContainer/StepContainer";
 
 function BasicInformation() {
   const [searchParams] = useSearchParams();
   const courseId = searchParams.get("courseId");
-  const { data: courseData } = useCourse({
-    courseId: Number(courseId),
-  });
+  const courseData = useCurrentCourse();
   // State
   const [apiErrors, setApiErrors] = useState<Record<string, string>>({});
   const [categoryId, setCategoryId] = useState<number | null>(null);
@@ -36,8 +34,27 @@ function BasicInformation() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors: formErrors },
-  } = useForm<IBasicInformationFormData>();
+    trigger,
+  } = useForm<IBasicInformationFormData>({ mode: "onChange" });
+  useEffect(() => {
+    if (courseData) {
+      reset({
+        title: courseData.title,
+        subtitle: courseData.subtitle,
+        category: courseData.category.id,
+        subcategory: courseData.subcategory.id,
+        topic: courseData.topic,
+        language: courseData.language.id,
+        subtitleLanguage: courseData.subtitleLanguage[0].id,
+        level: courseData.level,
+        duration: String(courseData.duration),
+        unit: "days",
+      });
+      void trigger();
+    }
+  }, [trigger, courseData !== null && courseData !== undefined]);
   const errors: FieldErrors<IBasicInformationFormData> = {
     ...formErrors,
     ...apiErrors,
@@ -45,16 +62,19 @@ function BasicInformation() {
   // Create a new course mutation
   const { mutate: post, isPending: isPending1 } = usePostCourse({
     setApiErrors,
+    navigateFowarad: true,
   });
   // Update course mutation
   const { mutate: patch, isPending: isPending2 } = useUpdateCourse({
     setApiErrors,
     courseId: Number(courseId),
+    navigateFowarad: true,
   });
   const isPending = isPending1 || isPending2;
   return (
     <form
       onSubmit={handleSubmit((data) => {
+        console.log("🚀 ~ onSubmit={handleSubmit ~ data:", data);
         courseId ? patch(data) : post(data);
       })}
     >
@@ -228,7 +248,7 @@ function BasicInformation() {
                   required
                 />
                 <Select
-                  containerClassName="bg-white !absolute top-[37.5%] !border-t !border-black z-10 !shadow-none !hover:shadow-none h-fit right-1 w-[40%]"
+                  containerClassName="bg-white !absolute top-[35%] !border-t !border-black z-10 !shadow-none !hover:shadow-none h-fit right-1 w-[40%]"
                   className="border-0 h-9 !shadow-none h!over:shdow-none !rounded-l-none   "
                   name="unit"
                   defaultValue={{

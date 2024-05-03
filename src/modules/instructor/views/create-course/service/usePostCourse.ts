@@ -7,8 +7,10 @@ import postData from "modules/shared/api/axiosHelpers/postData";
 import { type IBasicInformationFormData } from "../types/IBasicInformationFormData";
 export function usePostCourse({
   setApiErrors,
+  navigateFowarad = false,
 }: {
   setApiErrors: Dispatch<SetStateAction<Record<string, string>>>;
+  navigateFowarad?: boolean;
 }) {
   const { nextStep } = useStepsContext();
   const [, setSearchParams] = useSearchParams();
@@ -17,10 +19,10 @@ export function usePostCourse({
     mutationFn: async (data: IBasicInformationFormData) => {
       const payload = {
         ...data,
-        category: { id: data.category },
-        language: { id: data.language },
-        subcategory: { id: data.subcategory },
-        subtitleLanguage: [{ id: data.subtitleLanguage }],
+        category: { id: Number(data.category) },
+        language: { id: Number(data.language) },
+        subcategory: { id: Number(data.subcategory) },
+        subtitleLanguage: [{ id: Number(data.subtitleLanguage) }],
         duration:
           data.unit === "days"
             ? Number(data.duration)
@@ -35,7 +37,7 @@ export function usePostCourse({
     },
     onSuccess: () => {
       toast.success("Course created successfully");
-      nextStep();
+      navigateFowarad && nextStep();
     },
     onSettled: async () => {
       await queryClient.invalidateQueries({ queryKey: ["courses"] });

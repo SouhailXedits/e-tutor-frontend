@@ -1,10 +1,9 @@
 import type { IBasicInformationFormData } from "./IBasicInformationFormData";
-
-export interface IUpdateCourse extends IBasicInformationFormData {
+export interface IUpdateCourse extends Omit<IBasicInformationFormData, "id"> {
   // Step2
   thumbnail: string;
   trailer: string;
-  description: JSON;
+  description: string;
   subjects: string[];
   audience: string[];
   requirements: string[];

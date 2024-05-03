@@ -15,6 +15,7 @@ export default async function sendAxiosRequest<T>(
       const errors = (
         error.response?.data as { errors: Record<string, string> }
       ).errors;
+      console.error(errors);
       toast.error(
         error.message !== "canceled" &&
           (error.response?.status ?? 0) !== 401 &&
