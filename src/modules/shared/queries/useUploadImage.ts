@@ -1,23 +1,19 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import postData from "../api/axiosHelpers/postData";
 import { toast } from "react-toastify";
+import { useMutation } from "@tanstack/react-query";
 import { handleUploadImage } from "../api/handleUpload";
 
 export const useUploadImageMutation = () =>
   useMutation({
     mutationKey: ["payement"],
-    mutationFn: async (selectedImage: any) => {
-      console.log(selectedImage);
+    mutationFn: async (selectedImage: File) => {
       const res = await handleUploadImage(selectedImage);
-      console.log(res);
       return res;
     },
-    onError: (err: any) => {
+    onError: (err) => {
       const errMessage = err?.response?.data?.message || "Something went wrong";
       toast.error(errMessage);
     },
     onSuccess: (data) => {
-      console.log(data);
       toast.success("uploaded successfully!");
     },
   });

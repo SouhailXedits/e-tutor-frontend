@@ -1,7 +1,7 @@
-import { type ICourse } from "../../../shared/types/course";
+import { type CourseType } from "modules/shared/types/db";
 import { type IPayementCard } from "../../../shared/types/payementCard";
 
-export const fakeCourses: ICourse[] = [
+export const fakeCourses: CourseType[] = [
   {
     createdAt: "2024-04-23T07:29:03.768Z",
     updatedAt: "2024-04-23T07:29:03.768Z",

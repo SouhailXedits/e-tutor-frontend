@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { type FieldErrors, useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
+import { usePostCourse } from "modules/instructor/service/usePostCourse";
+import { useUpdateCourse } from "modules/instructor/service/useUpdateCourse";
+import { type IBasicInformationFormData } from "modules/instructor/types/IBasicInformationFormData";
 import Input from "modules/shared/components/Input";
 import Select from "modules/shared/components/Select";
 import useCategories from "modules/shared/queries/useCategories";
+import useCourse from "modules/shared/queries/useCourse";
 import useLanguage from "modules/shared/queries/useLanguage";
 import useSubategories from "modules/shared/queries/useSubcategories";
 import { CourseLevelEnum } from "modules/shared/types/db";
-
 import StepContainer from "../../StepContainer/StepContainer";
-import useCourse from "modules/shared/queries/useCourse";
-import { type IBasicInformationFormData, usePostCourse } from "modules/instructor/home/views/create-course/service/usePostCourse";
-import { useUpdateCourse } from "modules/instructor/home/views/create-course/service/useUpdateCourse";
 
 function BasicInformation() {
   const [searchParams] = useSearchParams();

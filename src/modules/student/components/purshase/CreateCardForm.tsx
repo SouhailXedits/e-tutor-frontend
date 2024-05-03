@@ -1,5 +1,3 @@
-import Button from "modules/shared/components/Button/Button";
-import Input from "modules/shared/components/Input";
 import { CardElement } from "@stripe/react-stripe-js";
 
 // function CreateCardForm({ register, errors, onSubmit, handleSubmit }: any) {
@@ -16,7 +14,7 @@ function CreateCardForm() {
         errors={errors}
         className=" gap-3 w-full"
       /> */}
-      <CardElement id="cardNumber"/>
+      <CardElement id="cardNumber" />
       {/* <Input
         id="cardNumber"
         name="cardNumber"

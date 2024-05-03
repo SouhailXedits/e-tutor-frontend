@@ -2,14 +2,14 @@ import { useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { useNavigate } from "react-router";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { type CourseType } from "modules/shared/types/db";
 import * as yup from "yup";
+import { type IPayementCard } from "../../../shared/types/payementCard";
 import CourseCard from "../../components/purshase/CourseCard";
 import CreateCardForm from "../../components/purshase/CreateCardForm";
 import OrderSummary from "../../components/purshase/OrderSummary";
 import { fakeCourses } from "../../services/fakeData/fakePurshaseData";
 import { usePayementMutation } from "../../services/queries/payement.query";
-import { type ICourse } from "../../../shared/types/course";
-import { type IPayementCard } from "../../../shared/types/payementCard";
 
 const payementCardSchema = yup.object().shape({
   name: yup.string().required("name is required"),
@@ -31,9 +31,9 @@ const payementCardSchema = yup.object().shape({
 const Purshase = () => {
   const [isCreateCardFormOpen, setIsCreateCardFormOpen] = useState(false);
   const navigate = useNavigate();
-  const [selectedCard, setSelectedCard] = useState<IPayementCard | null>(null);
+  const [, setSelectedCard] = useState<IPayementCard | null>(null);
   const { mutateAsync: pay } = usePayementMutation();
-  const cartItems: ICourse[] = fakeCourses;
+  const cartItems: CourseType[] = fakeCourses;
   const stripe = useStripe();
   const elements = useElements();
   // const {
@@ -129,7 +129,7 @@ const Purshase = () => {
               <p className="text-xl font-semibold">
                 Courses: {cartItems.length}
               </p>
-              {cartItems.map((item: ICourse) => {
+              {cartItems.map((item: CourseType) => {
                 return <CourseCard course={item} key={item.id} />;
               })}
             </div>

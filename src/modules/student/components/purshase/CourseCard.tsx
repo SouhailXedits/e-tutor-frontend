@@ -1,6 +1,6 @@
-import { ICourse } from "../../../shared/types/course";
+import { type CourseType } from "modules/shared/types/db";
 
-function CourseCard({ course }: { course: ICourse }) {
+function CourseCard({ course }: { course: CourseType }) {
   return (
     <div className=" flex gap-4">
       <img src="/Course-image.webp" alt=" course thumbnail" />

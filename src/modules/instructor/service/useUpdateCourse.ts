@@ -1,25 +1,9 @@
 import { type Dispatch, type SetStateAction } from "react";
 import { toast } from "react-toastify";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import patchData from "modules/shared/api/axiosHelpers/updateData";
-import { type IBasicInformationFormData } from "./usePostCourse";
 import useStepsContext from "modules/instructor/views/create-course/context/StepsContext";
-export interface IUpdateCourse extends IBasicInformationFormData {
-  // Step2
-  thumbnail: string;
-  trailer: string;
-  description: JSON;
-  subjects: string[];
-  audience: string[];
-  requirements: string[];
-  // Step3
-  welcomeMessage: string;
-  congratsMessage: string;
-  price: number;
-  discount: number;
-  // Must exist
-  instructors: number[];
-}
+import patchData from "modules/shared/api/axiosHelpers/updateData";
+import { type IUpdateCourse } from "../types/IUpdateCourse";
 export function useUpdateCourse({
   setApiErrors,
   courseId,

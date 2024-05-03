@@ -1,25 +1,27 @@
 import axios from "axios";
+import { API_ENDPOINT } from "config";
 
-export const handleUploadImage = async (selectedImage: any) => {
-  console.log(selectedImage);
+export const handleUploadImage = async (
+  selectedImage: File
+): Promise<null | unknown> => {
   const formData = new FormData();
   formData.append("file", selectedImage);
-
   const response = axios
-    .post("http://localhost:4000/api/v1/files/upload", formData, {
+    .post("/files/upload", formData, {
+      baseURL: API_ENDPOINT,
+      timeout: 0,
       headers: {
         "Content-Type": "multipart/form-data",
       },
       withCredentials: true,
     })
     .then((response) => {
-      console.log(response.data);
       return response.data;
     })
     .catch((error) => {
       console.error("Error uploading file:", error);
+      return null;
     });
   const data = await response;
-  console.log(data);
   return data;
 };

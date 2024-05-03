@@ -2,20 +2,9 @@ import { type Dispatch, type SetStateAction } from "react";
 import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import postData from "modules/shared/api/axiosHelpers/postData";
 import useStepsContext from "modules/instructor/views/create-course/context/StepsContext";
-export interface IBasicInformationFormData {
-  category: number;
-  duration: string;
-  language: number;
-  level: string;
-  subcategory: number;
-  subtitle: string;
-  subtitleLanguage: number;
-  title: string;
-  topic: string;
-  unit: "days" | "hours";
-}
+import postData from "modules/shared/api/axiosHelpers/postData";
+import { type IBasicInformationFormData } from "../types/IBasicInformationFormData";
 export function usePostCourse({
   setApiErrors,
 }: {

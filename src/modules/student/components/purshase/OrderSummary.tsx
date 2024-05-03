@@ -1,12 +1,9 @@
 import Button from "modules/shared/components/Button/Button";
-import { ICourse } from "../../../shared/types/course";
-function OrderSummary({ cartItems }: { cartItems: ICourse[] }) {
-  const subtotal = cartItems.reduce(
-    (acc: number, item: any) => acc + item.price,
-    0
-  );
+import { type CourseType } from "modules/shared/types/db";
+function OrderSummary({ cartItems }: { cartItems: CourseType[] }) {
+  const subtotal = cartItems.reduce((acc: number, item) => acc + item.price, 0);
   const discount = cartItems.reduce(
-    (acc: number, item: any) => acc + item.discount,
+    (acc: number, item) => acc + item.discount,
     0
   );
   const total = subtotal - discount;
