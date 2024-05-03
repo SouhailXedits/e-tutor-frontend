@@ -16,7 +16,7 @@ const StudentHeader = () => {
   const queryClient = useQueryClient();
   const { mutateAsync: logout } = useLogoutMutation();
   const user = queryClient.getQueryData(["user"]) as IUser;
-  const userPhoto = user?.photo.path ?? "/users/default-user-image.webp";
+  const userPhoto = user?.photo?.path ?? "/users/default-user-image.webp";
   console.log(userPhoto);
 
   async function handleLogout() {
