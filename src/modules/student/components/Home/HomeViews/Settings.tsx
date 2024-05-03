@@ -13,7 +13,7 @@ function Settings() {
   const { mutateAsync: updateStudentProfile } =
     useUpdateStudentProfileMutation();
   const [selectedImage, setSelectedImage] = useState<any>(null);
-  const { mutateAsync: uploadImage } = useUploadImageMutation()
+  const { mutateAsync: uploadImage } = useUploadImageMutation();
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(["user"]) as IUser;
   const {
@@ -31,18 +31,19 @@ function Settings() {
       })
     ),
   });
-  
 
   const onSubmit: SubmitHandler<IUpdateStudentProfile> = async (data) => {
     console.log(selectedImage);
     // const formData = new FormData();
     // formData.append("file", selectedImage);
     // console.log(formData)
-    const image = await uploadImage(selectedImage);
-    console.log(image)
-    const fileId = image.file.id
-    data.photo = { id: fileId };
-
+    if (selectedImage) {
+      const image = await uploadImage(selectedImage);
+      console.log(image);
+      const fileId = image.file.id;
+      data.photo = { id: fileId };
+    }
+    
     const userId = user.id;
     // data.photo = "";
     const filteredData = Object.fromEntries(

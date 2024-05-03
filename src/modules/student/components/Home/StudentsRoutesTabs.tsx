@@ -26,7 +26,7 @@ function HomeRoutesTabs() {
     ]
     return (
       <>
-        <ul className="flex gap-2 w-full bg-gray-900 text-gray-400 px-8 h-[52px]">
+        <ul className="flex gap-2 w-full bg-gray-900 text-gray-400 px-8 h-[52px] sticky top-0 z-10">
           {homeRoutes.map((route) => (
             <li key={route.path} className=" text-base flex items-center">
               <NavLink
