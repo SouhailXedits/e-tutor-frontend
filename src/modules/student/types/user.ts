@@ -40,5 +40,5 @@ export interface IUpdateStudentProfile {
   username?: string;
   email?: string;
   title?: string;
-  photo?: {id: number};
+  photo?: {id: number} | null;
 }
