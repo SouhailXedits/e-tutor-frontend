@@ -15,11 +15,11 @@ export default async function sendAxiosRequest<T>(
       const errors = (
         error.response?.data as { errors: Record<string, string> }
       ).errors;
-      toast.error(
-        error.message !== "canceled" &&
-          (error.response?.status ?? 0) !== 401 &&
-          error.message
-      );
+      // toast.error(
+      //   error.message !== "canceled" &&
+      //     (error.response?.status ?? 0) !== 401 &&
+      //     error.message
+      // );
       return { data: null, errors };
     });
 }
