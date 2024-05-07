@@ -9,7 +9,7 @@ import CourseCard from "../../components/purshase/CourseCard";
 import CreateCardForm from "../../components/purshase/CreateCardForm";
 import OrderSummary from "../../components/purshase/OrderSummary";
 import { fakeCourses } from "../../services/fakeData/fakePurshaseData";
-import { usePayementMutation } from "../../services/queries/payement.query";
+import { useConfirmPayementMutation, usePayementMutation } from "../../services/queries/payement.query";
 
 const payementCardSchema = yup.object().shape({
   name: yup.string().required("name is required"),
@@ -33,6 +33,7 @@ const Purshase = () => {
   const navigate = useNavigate();
   const [, setSelectedCard] = useState<IPayementCard | null>(null);
   const { mutateAsync: pay } = usePayementMutation();
+  const { mutateAsync: confirmPayment } = useConfirmPayementMutation();
   const cartItems: CourseType[] = fakeCourses;
   const stripe = useStripe();
   const elements = useElements();
@@ -55,16 +56,22 @@ const Purshase = () => {
       card: cardElement,
     });
     const res = (await pay({ courses: cart })) as any;
-    const clientSecret = res?.client_secret;
-    const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: cardElement,
-      },
-    });
-    if (!paymentIntent) return;
-    if (paymentIntent.status === "succeeded") {
-      navigate("/home");
-    }
+    const paymentIntentId = res?.id;
+    console.log(cardElement);
+    console.log(paymentIntentId);
+    
+    await confirmPayment({ paymentIntentId, card });
+    // console.log(result)
+
+    // const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+    //   payment_method: {
+    //     card: cardElement,
+    //   },
+    // });
+    // if (!paymentIntent) return;
+    // if (paymentIntent.status === "succeeded") {
+    //   navigate("/home");
+    // }
   };
   const handleFormToggle = () => {
     setIsCreateCardFormOpen((prev) => !prev);

@@ -5,7 +5,7 @@ export const fakeCourses: CourseType[] = [
   {
     createdAt: "2024-04-23T07:29:03.768Z",
     updatedAt: "2024-04-23T07:29:03.768Z",
-    id: 8,
+    id: 98,
     title: "Graphic Design Masterclass - Learn GREAT Design",
     subtitle: "Intelligent Metal Ball",
     topic: "Refined Frozen Gloves",
@@ -21,7 +21,7 @@ export const fakeCourses: CourseType[] = [
     discount: 5,
     thumbnail: {
       id: "f39d372c-3552-4b62-a954-7957f9a7d497",
-      path: "http://localhost:4000/api/v1/files/00477a23065504f1277c9.jpeg",
+      path: "http://localhost:4000/api/v1/files/00477a23065504f1277c9.jpeg"
     },
     trailer: {
       id: "f39d372c-3552-4b62-a954-7957f9a7d497",

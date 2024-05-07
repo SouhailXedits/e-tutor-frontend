@@ -33,23 +33,17 @@ function Settings() {
   });
 
   const onSubmit: SubmitHandler<IUpdateStudentProfile> = async (data) => {
-    console.log(selectedImage);
-    // const formData = new FormData();
-    // formData.append("file", selectedImage);
-    // console.log(formData)
     if (selectedImage) {
-      const image = await uploadImage(selectedImage);
+      const image = await uploadImage(selectedImage) as any;
       console.log(image);
-      const fileId = image.file.id;
+      const fileId = image.file.id ;
       data.photo = { id: fileId };
     }
-    
+
     const userId = user.id;
-    // data.photo = "";
     const filteredData = Object.fromEntries(
       Object.entries(data).filter(([key, value]) => value !== "")
     );
-    console.log(filteredData);
 
     await updateStudentProfile({ id: userId, body: filteredData });
   };
